@@ -1,11 +1,14 @@
 # Makefile
 
 OBJS = ./mips_instructions/load/load.o ./mips_instructions/store/store.o
-OPTS = -W -Wall
+OPTS = -W -Wall -lm
 LOAD_FILES = ./mips_instructions/load/load.o ./mips_instructions/load/load.c
 STORE_FILES = ./mips_instructions/store/store.o ./mips_instructions/store/store.c
 
 all: compile_load compile_store compile_main clean
+
+go: compile_load compile_store compile_main clean
+	./main
 
 compile_load: ./mips_instructions/load/load.c ./mips_instructions/load/load.h
 	gcc -c -o $(LOAD_FILES)
