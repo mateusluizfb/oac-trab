@@ -8,14 +8,22 @@
 int32_t memory[MEM_SIZE];
 
 int main() {
-  sb(0, 0, 0x01);
-  sb(0, 1, 0x02);
-  sb(0, 2, 0x03);
-  sb(0, 3, 0x04);
+  sw(0, 0, 0x01020304);
+  sw(0, 1, 0x00000000);
+  sw(0, 2, 0x00000001);
+  sw(0, 3, 0x0F00F001);
 
-  lw(0, 0);
-  lh(0, 0);
-  lb(0, 0);
+  dump_memory(0, 0);
 
   return 0;
+}
+
+void dump_memory(uint32_t address, uint32_t size) {
+  int32_t *word_pointer = &memory;
+
+  for (int i = 0; i < size; i++) {
+    printf("mem[%d] = ", i);
+    printf("%08x\n", *word_pointer);
+    word_pointer++;
+  }
 }
