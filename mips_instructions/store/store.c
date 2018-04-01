@@ -4,7 +4,7 @@
 
 void sw(uint32_t address, int16_t kte, int32_t dado) {
   int32_t *word_pointer = (int32_t*) memory; // Cast to char and interate with bytes
-  int actual_address = kte + (address * 4); // valor to offset mais o endereço * 4, para andar no andereço em words
+  int actual_address = (kte + address) / 4; // valor to offset mais o endereço * 4, para andar no andereço em words
   word_pointer += actual_address; // Bytes offset
 
   *word_pointer = dado; // Insere o dado no endereço
@@ -12,7 +12,7 @@ void sw(uint32_t address, int16_t kte, int32_t dado) {
 
 void sh(uint32_t address, int16_t kte, int16_t dado) {
   int16_t *half_word_pointer = (int16_t*) memory; // Cast to char and interate with bytes
-  int actual_address = kte + (address * 2); // valor to offset mais o endereço * 4, para andar no andereço em words
+  int actual_address = (kte + address) / 2; // valor to offset mais o endereço * 4, para andar no andereço em words
   half_word_pointer += actual_address; // Bytes offset
 
   *half_word_pointer = dado; // Insere o dado no endereço
