@@ -32,5 +32,11 @@ int main() {
 
   dump_memory(0, 28);
 
+  lh(20, 0);
+  lhu(20, 0);
+
+  lb(20, 0);
+  lbu(20, 0);
+
   return 0;
 }
