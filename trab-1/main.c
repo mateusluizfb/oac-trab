@@ -32,7 +32,5 @@ int main() {
 
   dump_memory(0, 28);
 
-  // TODO: Loads unsigned
-
   return 0;
 }
