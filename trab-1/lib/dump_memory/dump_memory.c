@@ -3,7 +3,7 @@
 #include "../../memory.h"
 
 void dump_memory(uint32_t address, uint32_t size) {
-  int32_t *word_pointer = &memory;
+  int32_t *word_pointer = (int32_t*) memory;
 
   size = size / 4;
 

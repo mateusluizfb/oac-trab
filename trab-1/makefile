@@ -1,7 +1,7 @@
 # Makefile
 
 OBJS = ./mips_instructions/load/load.o ./mips_instructions/store/store.o ./lib/dump_memory/dump_memory.o
-OPTS = -W -Wall -lm
+OPTS = -lm
 LOAD_FILES = ./mips_instructions/load/load.o ./mips_instructions/load/load.c
 STORE_FILES = ./mips_instructions/store/store.o ./mips_instructions/store/store.c
 DUMP_MEMORY_FILES = ./lib/dump_memory/dump_memory.o ./lib/dump_memory/dump_memory.c
