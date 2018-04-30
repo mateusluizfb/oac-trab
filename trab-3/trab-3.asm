@@ -29,12 +29,6 @@
   syscall
   mfc1 $s1, $f0 # Move o valor lido do coproc-1 para o $s1
 
-
-	### TESTE
-	add $a0, $zero, $s0
-	jal GET_MAN
-	### TESTE
-
 	GET_EXP: # retorna o expoente (bit 32) da word passada em $a0
 		srl $t0, $a0, 31
 		add $v0, $t0, $zero
