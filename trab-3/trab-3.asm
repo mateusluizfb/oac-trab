@@ -72,25 +72,32 @@
 		sw $s0, 0($sp)
 
 		add $s1, $zero, $zero # expoente = 0
+		add $s0, $a0, $zero # $s0 = argumento
+
+		# TODO: Checar de possuí 1's depois da virgula, caso não tenha antes
 
 		NORM_SINGLE_CHECAR_BIT_23:
-			andi $t0, $s0, 0x01000000 # Checa de o bit '23' é '1'
-			beq $s0, $zero, NORM_SINGLE_CHECAR_BIT_24 # não tiver bit no bit 23, então checa o bit 24
+			andi $t0, $s0, 0x00800000 # Checa de o bit '23' é '1'
+			beq $t0, $zero, NORM_SINGLE_CHECAR_BIT_24 # não tiver bit no bit 23, então checa o bit 24
 			j NORM_SINGLE_RETORNAR # se tiver '1' no bit 23 então mantissa já está normalizada
 
 		NORM_SINGLE_CHECAR_BIT_24:
-			andi $t0, $t0, 0x02000000 # Checa de o bit '24' é '1'
+			andi $t0, $s0, 0x01000000 # Checa de o bit '24' é '1'
 			beq $t0, $zero, NORM_SINGLE_RETORNAR # se não tiver bit no 24, então retorna a mantissa
 			srl $s0, $s0, 1
 			addi $s1, $zero, 1 # expoente++
+			j NORM_SINGLE_CHECAR_BIT_23
 
 		NORM_SINGLE_RETORNAR:
-			add $v0, $s0, $zero
-			add $v1, $s1, $zero
+			andi $s0, $s0, 0x007FFFFF # pegar só a parte válida da mantissa (22 até o 0)
+			addi $t1, $s1, 127 # 127 + expoente (quantidade de shifts até normalizar)
+			sll $t1, $t1, 23 # move tudo até o local do expoente no padrão IEEE
+			or $v0, $t1, $s0
 
 			lw $s0, 0($sp)
 			lw $s1, 4($sp)
 			addi $sp, $sp, 8 # desempilhar
+			jr $ra
 
 
 	SOMAR: # Função de soma: somar(a, b) // $s0 = a, $s1 = b, $s2 = get_man(a), $s3 = get_man(b)
@@ -114,17 +121,15 @@
 		ori $s3, $s3, 0x00800000 # Adiciona o bit '1' no bit 23 da mantissa de 'a'
 		ori $s4, $s4, 0x00800000 # Adiciona o bit '1' no bit 23 da mantissa de 'b'
 
-		# SUBTRAIR expoente de A por expoente de B
-
 		add $a0, $s0, $zero
 		add $a1, $s1, $zero
-		jal SUB_EXP # subtrai os expoentes
-		beq $v0, $zero, SOMAR_MANTISSA # se o retorno for 0, então vai pra soma
+		jal SUB_EXP # SUBTRAIR expoente de A por expoente de B
+		beq $v0, $zero, SOMAR_MANTISSA # se o retorno for 0, então vai direto pra soma
 
 		slt $t0, $v0, $zero # se retorno < 0 seta $t0 pra 1
 		beq $zero, $t0, ALINHAR_EXPOENTE_B # se o retorno é positivo, alinha a mantissa de b
 
-		ALINHAR_EXPOENTE_A:
+		ALINHAR_EXPOENTE_A: # Alinha a mantissa de 'a' com a de 'b' para ser possível fazer a soma
 			add $t0, $v0, $zero,
 			ALINHAR_EXPOENTE_A_FOR:
 				beq $t0, $zero, ALINHAR_EXPOENTE_A_FOR_END
@@ -134,7 +139,7 @@
 			ALINHAR_EXPOENTE_A_FOR_END:
 				j SOMAR_MANTISSA
 
-		ALINHAR_EXPOENTE_B:
+		ALINHAR_EXPOENTE_B: # Alinha a mantissa de 'b' com a de 'a' para ser possível fazer a soma
 			add $t0, $v0, $zero
 			ALINHAR_EXPOENTE_B_FOR:
 				beq $t0, $zero, ALINHAR_EXPOENTE_B_FOR_END
