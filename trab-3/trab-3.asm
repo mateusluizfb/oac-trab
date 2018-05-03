@@ -107,7 +107,7 @@
 		jal GET_MAN
 		add $s3, $zero, $v0 # guarda valor da mantissa de 'a' em $s3
 
-		add $a0, $zero, $s0 # passar valor de 'b' para o argumento de GET_MAN
+		add $a0, $zero, $s1 # passar valor de 'b' para o argumento de GET_MAN
 		jal GET_MAN
 		add $s4, $zero, $v0 # guarda valor da mantissa de 'b' em $s4
 
@@ -130,6 +130,7 @@
 				beq $t0, $zero, ALINHAR_EXPOENTE_A_FOR_END
 				srl $s3, $s3, 1
 				addi $t0, $t0, 1
+				j ALINHAR_EXPOENTE_A_FOR
 			ALINHAR_EXPOENTE_A_FOR_END:
 				j SOMAR_MANTISSA
 
@@ -139,6 +140,7 @@
 				beq $t0, $zero, ALINHAR_EXPOENTE_B_FOR_END
 				srl $s4, $s4, 1
 				addi $t0, $t0, -1
+				j ALINHAR_EXPOENTE_B_FOR
 			ALINHAR_EXPOENTE_B_FOR_END:
 				j SOMAR_MANTISSA
 
