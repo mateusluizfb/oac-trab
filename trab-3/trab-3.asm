@@ -38,8 +38,10 @@
 		add $t1, $zero, 1
 		add $t2, $zero, 2
 		add $t3, $zero, 3
-		beq $v0, $t1, SOMAR # Soma se o valor for 1
-		beq $v0, $t2, SAIR # Multiplica se o valor for 2
+		add $a0, $zero, $s0 # Passar o primeiro operando para o primeiro argumento
+		add $a1, $zero, $s1 # Passar o segundo operando para o segundo argumento
+		beq $v0, $t1, SOMAR # somar(a, b) se valor do input for 1
+		beq $v0, $t2, SAIR # multiplicar(a, b)  se valor do input for
 		beq $v0, $t3, SAIR # Sai do programa se o valor for 3
 		j ESCOLHER_OPERACAO # Se for nenhum dos valores anteriores, pede o input novamente
 
@@ -57,7 +59,27 @@
 		jr $ra
 
 
-	SOMAR: # Função de soma
-		addi $sp, $zero, -4 # Alocar espaço na pilha
-	
+	SOMAR: # Função de soma: somar(a, b) // $s0 = a, $s1 = b, $s2 = get_man(a), $s3 = get_man(b)
+		addi $sp, $sp, -16 # Alocar espaço na pilha
+		sw $s0, 12($sp) # Guarda $s0 na pilha
+		sw $s1, 8($sp) # Guarda $s1 na pilha
+		sw $s2, 4($sp) # Guarda $s1 na pilha
+		sw $s3, 0($sp) # Guarda $s1 na pilha
+
+		add $s0, $zero, $a0 # Guardar primeiro argumento em $s0
+		add $s1, $zero, $a1 # Guardar segundo argumento em $s1
+
+		add $a0, $zero, $s0 # passar valor de 'a' para o argumento de GET_MAN
+		jal GET_MAN
+		add $s3, $zero, $v0 # guarda valor da mantissa de 'a' em $s3
+
+		add $a0, $zero, $s0 # passar valor de 'b' para o argumento de GET_MAN
+		jal GET_MAN
+		add $s4, $zero, $v0 # guarda valor da mantissa de 'b' em $s4
+
+		ori $s3, $s3, 0x01000000 # Adiciona o bit '1' no bit 23 da mantissa de 'a'
+		ori $s4, $s4, 0x01000000 # Adiciona o bit '1' no bit 23 da mantissa de 'b'
+
+		add $t0, $s3, $s4 # soma as mantissas
+
 		j SAIR
