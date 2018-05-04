@@ -58,7 +58,7 @@
 		andi $v0, $a0, 0x007FFFFF
 		jr $ra
 
-	SUB_EXP:
+	SUB_EXP: # subtrai expoente
 		andi $a0, $a0, 0x7F800000
 		andi $a1, $a1, 0x7F800000
 		srl $a0, $a0, 23
@@ -66,15 +66,24 @@
 		sub $v0, $a0, $a1
 		jr  $ra
 
+	TRANSFORM_COMP_2: # TRANSFORM_COMP_2(sinal, masntissa)
+		add $v0, $zero, $a1 # valor original no retorno para caso pule o comp de 2
+		beq $a0, $zero, TRANSFORM_COMP_2_SAIR
+		xori $v0, $a1, 0xFFFFFFFF # inverte os bits
+		addi $v0, $v0, 1 # soma mais '1'
+		TRANSFORM_COMP_2_SAIR:
+		jr $ra
+
 	NORM_SINGLE: # norm_single(valor) / retorna mantissa normalizada e quantos bits foram shiftados positivamente ou negativamente
-		addi $sp, $sp, -8
+		addi $sp, $sp, -12
+		sw $s2, 8($sp)
 		sw $s1, 4($sp)
 		sw $s0, 0($sp)
 
 		add $s1, $zero, $zero # expoente = 0
 		add $s0, $a0, $zero # $s0 = argumento
+		add $s2, $a1, $zero # $s1 = argumento 2
 
-		# TODO: Checar de possuí 1's depois da virgula, caso não tenha antes
 
 		NORM_SINGLE_CHECAR_BIT_23:
 			andi $t0, $s0, 0x00800000 # Checa de o bit '23' é '1'
@@ -88,15 +97,21 @@
 			addi $s1, $zero, 1 # expoente++
 			j NORM_SINGLE_CHECAR_BIT_23
 
+		# TODO: Checar de possuí 1's depois da virgula, caso não tenha antes
+
 		NORM_SINGLE_RETORNAR:
 			andi $s0, $s0, 0x007FFFFF # pegar só a parte válida da mantissa (22 até o 0)
+			beq $s1, $zero, NORM_SINGLE_RETORNAR_EXPOENTE_S2
 			addi $t1, $s1, 127 # 127 + expoente (quantidade de shifts até normalizar)
+			NORM_SINGLE_RETORNAR_EXPOENTE_S2: # bota o expoente do alinhamento caso o expoente seja 0, ou seja, já tava normalizado
+				add $t1, $s2, $zero
 			sll $t1, $t1, 23 # move tudo até o local do expoente no padrão IEEE
-			or $v0, $t1, $s0
+			or $v0, $t1, $s0 # arruma expoente com a mantissa
 
 			lw $s0, 0($sp)
 			lw $s1, 4($sp)
-			addi $sp, $sp, 8 # desempilhar
+			lw $s2, 8($sp)
+			addi $sp, $sp, 12 # desempilhar
 			jr $ra
 
 
@@ -104,7 +119,7 @@
 		addi $sp, $sp, -16 # Alocar espaço na pilha
 		sw $s0, 12($sp) # Guarda $s0 na pilha
 		sw $s1, 8($sp) # Guarda $s1 na pilha
-		sw $s2, 4($sp) # Guarda $s1 na pilha
+		sw $s4, 4($sp) # Guarda $s1 na pilha
 		sw $s3, 0($sp) # Guarda $s1 na pilha
 
 		add $s0, $zero, $a0 # Guardar primeiro argumento em $s0
@@ -113,17 +128,25 @@
 		add $a0, $zero, $s0 # passar valor de 'a' para o argumento de GET_MAN
 		jal GET_MAN
 		add $s3, $zero, $v0 # guarda valor da mantissa de 'a' em $s3
+		ori $s3, $s3, 0x00800000 # Adiciona o bit '1' no bit 23 da mantissa de 'a'
+		andi $a0, $s0, 0x80000000 # bit do sinal
+		add $a1, $zero, $s3
+		jal TRANSFORM_COMP_2 # TRANSFORM_COMP_2(sinal, mantissa)
+		add $s3, $v0, $zero # pega o valor que foi ou não convertido pra comp de 2
 
 		add $a0, $zero, $s1 # passar valor de 'b' para o argumento de GET_MAN
 		jal GET_MAN
 		add $s4, $zero, $v0 # guarda valor da mantissa de 'b' em $s4
-
-		ori $s3, $s3, 0x00800000 # Adiciona o bit '1' no bit 23 da mantissa de 'a'
 		ori $s4, $s4, 0x00800000 # Adiciona o bit '1' no bit 23 da mantissa de 'b'
+		andi $a0, $s1, 0x80000000 # bit do sinal
+		add $a1, $zero, $s4
+		jal TRANSFORM_COMP_2 # TRANSFORM_COMP_2(sinal, mantissa)
+		add $s4, $v0, $zero # pega o valor que foi ou não convertido pra comp de 2
 
 		add $a0, $s0, $zero
 		add $a1, $s1, $zero
 		jal SUB_EXP # SUBTRAIR expoente de A por expoente de B
+		add $t1, $v0, $zero # guarda valor da subtração em $t1
 		beq $v0, $zero, SOMAR_MANTISSA # se o retorno for 0, então vai direto pra soma
 
 		slt $t0, $v0, $zero # se retorno < 0 seta $t0 pra 1
@@ -151,6 +174,7 @@
 
 		SOMAR_MANTISSA:
 			add $a0, $s3, $s4 # soma as mantissas
+			add $a1, $t1, $zero
 			jal NORM_SINGLE
 
 		# desempilhar
