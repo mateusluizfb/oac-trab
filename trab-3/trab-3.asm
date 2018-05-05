@@ -94,6 +94,7 @@
 		add $s1, $zero, $zero # expoente = 0
 		add $s0, $a0, $zero # $s0 = argumento 1
 		add $s2, $a1, $zero # $s1 = argumento 2
+		srl $s2, $s2, 23
 		add $s3, $a2, $zero # $s2 = argumento 3
 
 		NORM_SINGLE_CHECAR_BIT_23:
@@ -111,19 +112,14 @@
 		NORM_SINGLE_CHECAR_BIT_22_0:
 			beq $s0, $zero, NORM_SINGLE_RETORNAR # Se o valor for 0, só retorna o valor e não faz o shift left
 			sll $s0, $s0, 1
-			addi $s1, $zero, -1 # expoente --
+			addi $s1, $zero, -1 # expoente--
 			j NORM_SINGLE_CHECAR_BIT_23
 
 		NORM_SINGLE_RETORNAR:
 			andi $s0, $s0, 0x007FFFFF # pegar só a parte válida da mantissa (22 até o 0)
-			blez $s1, NORM_SINGLE_RETORNAR_EXPOENTE_S2
-			addi $t1, $s1, 127 # 127 + expoente (quantidade de shifts até normalizar)
-			sll $s2, $t1, 23 # move tudo até o local do expoente no padrão IEEE
-			NORM_SINGLE_RETORNAR_EXPOENTE_S2: # bota o expoente do alinhamento caso o expoente seja 0, ou seja, já tava normalizado
-				srl $t1, $s2, 23 # pega o valor do maior expoente sem formatação IEEE
-				add $t1, $t1, $s1 # soma o maior expoente com o expoente calculado que pode ser zero ou menor que zero (fez shifts left)
-				sll $t1, $t1, 23 # volta para a posição de expoente IEEE
-			or $v0, $t1, $s0 # arruma expoente com a mantissa
+			add $s1, $s2, $s1
+			sll $s2, $s1, 23 # move tudo até o local do expoente no padrão IEEE
+			or $v0, $s2, $s0 # arruma expoente com a mantissa
 			or $v0, $v0, $s3 # bota o bit de sinal do maior
 
 			lw $s0, 0($sp)
@@ -158,8 +154,8 @@
 		add $a0, $s0, $zero
 		add $a1, $s1, $zero
 		jal SUB_EXP # SUBTRAIR expoente de A por expoente de B
-		add $s5, $v0, $zero # guarda valor da subtração em $t1
-		andi $s6, $s0, 0x80000000 # guarda bit no sinal
+		andi $s5, $s0, 0x7F800000  # guarda valor do expoente, caso o valro da subtração seja 0
+		andi $s6, $s0, 0x80000000 # guarda bit do sinal
 		beq $v0, $zero, SOMAR_MANTISSA # se o retorno for 0, então vai direto pra soma
 
 		slt $t0, $v0, $zero # se retorno < 0 seta $t0 pra 1
@@ -198,29 +194,35 @@
 			sw $s3, 4($sp) # $s3 na pilha
 			sw $s5, 0($sp) # $s5 na pilha
 
-			andi $a0, $s0, 0x80000000 # bit do sinal de 'a'
-			add $a1, $zero, $s3
-			jal TRANSFORM_COMP_2 # TRANSFORM_COMP_2(sinal, mantissa)
-			add $s3, $v0, $zero # pega o valor que foi ou não convertido pra comp de 2
+			bgez $s0, FAZER_COMPLEMENTO_2
+			bgez $s1, FAZER_COMPLEMENTO_2
+			j SOMAR_NORMALMENTE # se 'a' e 'b' forem menores que 0, faz a soma normalmente
 
-			andi $a0, $s1, 0x80000000 # bit do sinal de 'b'
-			add $a1, $zero, $s4
-			jal TRANSFORM_COMP_2 # TRANSFORM_COMP_2(sinal, mantissa)
-			add $s4, $v0, $zero # pega o valor que foi ou não convertido pra comp de 2
+			FAZER_COMPLEMENTO_2:
+				andi $a0, $s0, 0x80000000 # bit do sinal de 'a'
+				add $a1, $zero, $s3
+				jal TRANSFORM_COMP_2 # TRANSFORM_COMP_2(sinal, mantissa)
+				add $s3, $v0, $zero # pega o valor que foi ou não convertido pra comp de 2
 
-			add $a0, $s3, $s4 # soma as mantissas
-			add $a1, $s5, $zero # passa o valor do maior expoente pra caso a soma já esteja normalizada
-			add $a2, $s6, $zero, # valor do sinal do maior número
-			jal NORM_SINGLE
-			add $t0, $v0, $zero # guarda resultado em $t0
+				andi $a0, $s1, 0x80000000 # bit do sinal de 'b'
+				add $a1, $zero, $s4
+				jal TRANSFORM_COMP_2 # TRANSFORM_COMP_2(sinal, mantissa)
+				add $s4, $v0, $zero # pega o valor que foi ou não convertido pra comp de 2
 
-			la $t1, RESULTADO_MSG # Lê o endereço da mensagem de resultado
-			add $a0, $t1, $zero # Armazena a string para syscall
-			li $v0, 4 # 4 é o código para imprimir string
-			syscall
-			mtc1 $t0, $f12 # bota o resultado para printar
-			li $v0, 2 # codigo para printar float
-			syscall
+			SOMAR_NORMALMENTE:
+				add $a0, $s3, $s4 # soma as mantissas
+				add $a1, $s5, $zero # passa o valor do maior expoente pra caso a soma já esteja normalizada
+				add $a2, $s6, $zero, # valor do sinal do maior número
+				jal NORM_SINGLE
+				add $t0, $v0, $zero # guarda resultado em $t0
+
+				la $t1, RESULTADO_MSG # Lê o endereço da mensagem de resultado
+				add $a0, $t1, $zero # Armazena a string para syscall
+				li $v0, 4 # 4 é o código para imprimir string
+				syscall
+				mtc1 $t0, $f12 # bota o resultado para printar
+				li $v0, 2 # codigo para printar float
+				syscall
 
 			lw $s6, 20($sp) # devolve o valor de $s0 na pilha
 			lw $s0, 16($sp) # devolve o valor de $s0 na pilha
