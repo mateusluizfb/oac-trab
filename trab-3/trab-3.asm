@@ -6,9 +6,10 @@
 
 .data
 
-	INSERIR_OPERANDO_1: 		.asciiz "Insira o primeiro operando: \n"
+	INSERIR_OPERANDO_1: 		.asciiz "\nInsira o primeiro operando: \n"
 	INSERIR_OPERANDO_2: 		.asciiz "Insira o segundo operando: \n"
 	ESCOLHER_OPERACAO_MSG:  .asciiz "Digite:\n - '1' para somar \n - '2' para multiplicar \n - '3' para sair \n"
+	RESULTADO_MSG: 					.asciiz "Resultado: "
 
 .text
 
@@ -83,15 +84,17 @@
 		DESFAZER_COMP_2_SAIR:
 			jr $ra
 
-	NORM_SINGLE: # norm_single(valor, expoente do maior) / retorna mantissa normalizada e quantos bits foram shiftados positivamente ou negativamente
-		addi $sp, $sp, -12
+	NORM_SINGLE: # norm_single(valor, expoente do maior, sinal do maior) / retorna mantissa normalizada e quantos bits foram shiftados positivamente ou negativamente
+		addi $sp, $sp, -24
+		sw $s3, 12($sp)
 		sw $s2, 8($sp)
 		sw $s1, 4($sp)
 		sw $s0, 0($sp)
 
 		add $s1, $zero, $zero # expoente = 0
-		add $s0, $a0, $zero # $s0 = argumento
+		add $s0, $a0, $zero # $s0 = argumento 1
 		add $s2, $a1, $zero # $s1 = argumento 2
+		add $s3, $a2, $zero # $s2 = argumento 3
 
 		NORM_SINGLE_CHECAR_BIT_23:
 			andi $t0, $s0, 0x00800000 # Checa de o bit '23' é '1'
@@ -111,15 +114,17 @@
 			andi $s0, $s0, 0x007FFFFF # pegar só a parte válida da mantissa (22 até o 0)
 			beq $s1, $zero, NORM_SINGLE_RETORNAR_EXPOENTE_S2
 			addi $t1, $s1, 127 # 127 + expoente (quantidade de shifts até normalizar)
-			sll $t1, $t1, 23 # move tudo até o local do expoente no padrão IEEE
+			sll $s2, $t1, 23 # move tudo até o local do expoente no padrão IEEE
 			NORM_SINGLE_RETORNAR_EXPOENTE_S2: # bota o expoente do alinhamento caso o expoente seja 0, ou seja, já tava normalizado
 				add $t1, $s2, $zero
 			or $v0, $t1, $s0 # arruma expoente com a mantissa
+			or $v0, $v0, $s3 # bota o bit de sinal do maior
 
 			lw $s0, 0($sp)
 			lw $s1, 4($sp)
 			lw $s2, 8($sp)
-			addi $sp, $sp, 12 # desempilhar
+			lw $s3, 12($sp)
+			addi $sp, $sp, 16 # desempilhar
 			jr $ra
 
 
@@ -148,6 +153,7 @@
 		add $a1, $s1, $zero
 		jal SUB_EXP # SUBTRAIR expoente de A por expoente de B
 		add $s5, $v0, $zero # guarda valor da subtração em $t1
+		andi $s6, $s0, 0x80000000 # guarda bit no sinal
 		beq $v0, $zero, SOMAR_MANTISSA # se o retorno for 0, então vai direto pra soma
 
 		slt $t0, $v0, $zero # se retorno < 0 seta $t0 pra 1
@@ -155,6 +161,7 @@
 
 		ALINHAR_EXPOENTE_A: # Alinha a mantissa de 'a' com a de 'b' para ser possível fazer a soma
 			add $t0, $v0, $zero
+			andi $s6, $s1, 0x80000000 # Guarda bir de sinal do maior
 			andi $s5, $s1, 0x7F800000 # Guarda expoente do maior
 			ALINHAR_EXPOENTE_A_FOR:
 				beq $t0, $zero, ALINHAR_EXPOENTE_A_FOR_END
@@ -166,6 +173,7 @@
 
 		ALINHAR_EXPOENTE_B: # Alinha a mantissa de 'b' com a de 'a' para ser possível fazer a soma
 			add $t0, $v0, $zero
+			andi $s6, $s0, 0x80000000 # Guarda bit de sinal do maior
 			andi $s5, $s0, 0x7F800000 # Guarda expoente do maior
 			ALINHAR_EXPOENTE_B_FOR:
 				beq $t0, $zero, ALINHAR_EXPOENTE_B_FOR_END
@@ -176,6 +184,14 @@
 				j SOMAR_MANTISSA
 
 		SOMAR_MANTISSA:
+			addi $sp, $sp, -24 # alocar pilha
+			sw $s6, 20($sp) # $s6 na pilha
+			sw $s0, 16($sp) # $s0 na pilha
+			sw $s1, 12($sp) # $s1 na pilha
+			sw $s4, 8($sp) # $s4 na pilha
+			sw $s3, 4($sp) # $s3 na pilha
+			sw $s5, 0($sp) # $s5 na pilha
+
 			andi $a0, $s0, 0x80000000 # bit do sinal
 			add $a1, $zero, $s3
 			jal TRANSFORM_COMP_2 # TRANSFORM_COMP_2(sinal, mantissa)
@@ -188,7 +204,23 @@
 
 			add $a0, $s3, $s4 # soma as mantissas
 			add $a1, $s5, $zero # passa o valor do maior expoente pra caso a soma já esteja normalizada
+			add $a2, $s6, $zero, # valor do sinal do maior número
 			jal NORM_SINGLE
+			add $t0, $v0, $zero # guarda resultado em $t0
 
-		# desempilhar
-		j SAIR
+			la $t1, RESULTADO_MSG # Lê o endereço da mensagem de resultado
+			add $a0, $t1, $zero # Armazena a string para syscall
+			li $v0, 4 # 4 é o código para imprimir string
+			syscall
+			mtc1 $t0, $f12 # bota o resultado para printar
+			li $v0, 2 # codigo para printar float
+			syscall
+
+			lw $s6, 20($sp) # devolve o valor de $s0 na pilha
+			lw $s0, 16($sp) # devolve o valor de $s0 na pilha
+			lw $s1, 12($sp) # devolve o valor de $s1 na pilha
+			lw $s4, 8($sp) # devolve o valor de $s1 na pilha
+			lw $s3, 4($sp) # devolve o valor de $s1 na pilha
+			lw $s5, 0($sp) # devolve o valor de $s1 na pilha
+			addi $sp, $sp, 24 # desalocar pilha
+			j SAIR
