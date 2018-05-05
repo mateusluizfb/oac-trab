@@ -103,20 +103,26 @@
 
 		NORM_SINGLE_CHECAR_BIT_24:
 			andi $t0, $s0, 0x01000000 # Checa de o bit '24' é '1'
-			beq $t0, $zero, NORM_SINGLE_RETORNAR # se não tiver bit no 24, então retorna a mantissa
+			beq $t0, $zero, NORM_SINGLE_CHECAR_BIT_22_0 # se não tiver bit no 24, então checa os bits da direita
 			srl $s0, $s0, 1
 			addi $s1, $zero, 1 # expoente++
 			j NORM_SINGLE_CHECAR_BIT_23
 
-		# TODO: Checar de possuí 1's depois da virgula, caso não tenha antes
+		NORM_SINGLE_CHECAR_BIT_22_0:
+			beq $s0, $zero, NORM_SINGLE_RETORNAR # Se o valor for 0, só retorna o valor e não faz o shift left
+			sll $s0, $s0, 1
+			addi $s1, $zero, -1 # expoente --
+			j NORM_SINGLE_CHECAR_BIT_23
 
 		NORM_SINGLE_RETORNAR:
 			andi $s0, $s0, 0x007FFFFF # pegar só a parte válida da mantissa (22 até o 0)
-			beq $s1, $zero, NORM_SINGLE_RETORNAR_EXPOENTE_S2
+			blez $s1, NORM_SINGLE_RETORNAR_EXPOENTE_S2
 			addi $t1, $s1, 127 # 127 + expoente (quantidade de shifts até normalizar)
 			sll $s2, $t1, 23 # move tudo até o local do expoente no padrão IEEE
 			NORM_SINGLE_RETORNAR_EXPOENTE_S2: # bota o expoente do alinhamento caso o expoente seja 0, ou seja, já tava normalizado
-				add $t1, $s2, $zero
+				srl $t1, $s2, 23 # pega o valor do maior expoente sem formatação IEEE
+				add $t1, $t1, $s1 # soma o maior expoente com o expoente calculado que pode ser zero ou menor que zero (fez shifts left)
+				sll $t1, $t1, 23 # volta para a posição de expoente IEEE
 			or $v0, $t1, $s0 # arruma expoente com a mantissa
 			or $v0, $v0, $s3 # bota o bit de sinal do maior
 
@@ -192,12 +198,12 @@
 			sw $s3, 4($sp) # $s3 na pilha
 			sw $s5, 0($sp) # $s5 na pilha
 
-			andi $a0, $s0, 0x80000000 # bit do sinal
+			andi $a0, $s0, 0x80000000 # bit do sinal de 'a'
 			add $a1, $zero, $s3
 			jal TRANSFORM_COMP_2 # TRANSFORM_COMP_2(sinal, mantissa)
 			add $s3, $v0, $zero # pega o valor que foi ou não convertido pra comp de 2
 
-			andi $a0, $s1, 0x80000000 # bit do sinal
+			andi $a0, $s1, 0x80000000 # bit do sinal de 'b'
 			add $a1, $zero, $s4
 			jal TRANSFORM_COMP_2 # TRANSFORM_COMP_2(sinal, mantissa)
 			add $s4, $v0, $zero # pega o valor que foi ou não convertido pra comp de 2
