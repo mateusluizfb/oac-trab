@@ -68,13 +68,22 @@
 
 	TRANSFORM_COMP_2: # TRANSFORM_COMP_2(sinal, masntissa)
 		add $v0, $zero, $a1 # valor original no retorno para caso pule o comp de 2
-		beq $a0, $zero, TRANSFORM_COMP_2_SAIR
+		beq $a0, $zero, TRANSFORM_COMP_2_SAIR # SE o sinal for negativo, então faz a conversão
 		xori $v0, $a1, 0xFFFFFFFF # inverte os bits
 		addi $v0, $v0, 1 # soma mais '1'
 		TRANSFORM_COMP_2_SAIR:
-		jr $ra
+			jr $ra
 
-	NORM_SINGLE: # norm_single(valor) / retorna mantissa normalizada e quantos bits foram shiftados positivamente ou negativamente
+	DESFAZER_COMP_2: # DESFAZER_COMP_2(valor)
+		add $v0, $zero, $a0 # valor original no retorno caso o valor não seja negativo
+		slt $t0, $a0, $zero # se o valor for menor que 0 então desfaz o complemento de 2
+		beq $t0, $zero, DESFAZER_COMP_2_SAIR
+		addi $v0, $a0, -1
+		xori $v0, $v0, 0xFFFFFFFF # inverte os bits
+		DESFAZER_COMP_2_SAIR:
+			jr $ra
+
+	NORM_SINGLE: # norm_single(valor, expoente do maior) / retorna mantissa normalizada e quantos bits foram shiftados positivamente ou negativamente
 		addi $sp, $sp, -12
 		sw $s2, 8($sp)
 		sw $s1, 4($sp)
@@ -83,7 +92,6 @@
 		add $s1, $zero, $zero # expoente = 0
 		add $s0, $a0, $zero # $s0 = argumento
 		add $s2, $a1, $zero # $s1 = argumento 2
-
 
 		NORM_SINGLE_CHECAR_BIT_23:
 			andi $t0, $s0, 0x00800000 # Checa de o bit '23' é '1'
@@ -103,9 +111,9 @@
 			andi $s0, $s0, 0x007FFFFF # pegar só a parte válida da mantissa (22 até o 0)
 			beq $s1, $zero, NORM_SINGLE_RETORNAR_EXPOENTE_S2
 			addi $t1, $s1, 127 # 127 + expoente (quantidade de shifts até normalizar)
+			sll $t1, $t1, 23 # move tudo até o local do expoente no padrão IEEE
 			NORM_SINGLE_RETORNAR_EXPOENTE_S2: # bota o expoente do alinhamento caso o expoente seja 0, ou seja, já tava normalizado
 				add $t1, $s2, $zero
-			sll $t1, $t1, 23 # move tudo até o local do expoente no padrão IEEE
 			or $v0, $t1, $s0 # arruma expoente com a mantissa
 
 			lw $s0, 0($sp)
@@ -116,11 +124,12 @@
 
 
 	SOMAR: # Função de soma: somar(a, b) // $s0 = a, $s1 = b, $s2 = get_man(a), $s3 = get_man(b)
-		addi $sp, $sp, -16 # Alocar espaço na pilha
-		sw $s0, 12($sp) # Guarda $s0 na pilha
-		sw $s1, 8($sp) # Guarda $s1 na pilha
-		sw $s4, 4($sp) # Guarda $s1 na pilha
-		sw $s3, 0($sp) # Guarda $s1 na pilha
+		addi $sp, $sp, -20 # Alocar espaço na pilha
+		sw $s0, 16($sp) # Guarda $s0 na pilha
+		sw $s1, 12($sp) # Guarda $s1 na pilha
+		sw $s4, 8($sp) # Guarda $s1 na pilha
+		sw $s3, 4($sp) # Guarda $s1 na pilha
+		sw $s5, 0($sp) # Guarda $s1 na pilha
 
 		add $s0, $zero, $a0 # Guardar primeiro argumento em $s0
 		add $s1, $zero, $a1 # Guardar segundo argumento em $s1
@@ -129,31 +138,24 @@
 		jal GET_MAN
 		add $s3, $zero, $v0 # guarda valor da mantissa de 'a' em $s3
 		ori $s3, $s3, 0x00800000 # Adiciona o bit '1' no bit 23 da mantissa de 'a'
-		andi $a0, $s0, 0x80000000 # bit do sinal
-		add $a1, $zero, $s3
-		jal TRANSFORM_COMP_2 # TRANSFORM_COMP_2(sinal, mantissa)
-		add $s3, $v0, $zero # pega o valor que foi ou não convertido pra comp de 2
 
 		add $a0, $zero, $s1 # passar valor de 'b' para o argumento de GET_MAN
 		jal GET_MAN
 		add $s4, $zero, $v0 # guarda valor da mantissa de 'b' em $s4
 		ori $s4, $s4, 0x00800000 # Adiciona o bit '1' no bit 23 da mantissa de 'b'
-		andi $a0, $s1, 0x80000000 # bit do sinal
-		add $a1, $zero, $s4
-		jal TRANSFORM_COMP_2 # TRANSFORM_COMP_2(sinal, mantissa)
-		add $s4, $v0, $zero # pega o valor que foi ou não convertido pra comp de 2
 
 		add $a0, $s0, $zero
 		add $a1, $s1, $zero
 		jal SUB_EXP # SUBTRAIR expoente de A por expoente de B
-		add $t1, $v0, $zero # guarda valor da subtração em $t1
+		add $s5, $v0, $zero # guarda valor da subtração em $t1
 		beq $v0, $zero, SOMAR_MANTISSA # se o retorno for 0, então vai direto pra soma
 
 		slt $t0, $v0, $zero # se retorno < 0 seta $t0 pra 1
 		beq $zero, $t0, ALINHAR_EXPOENTE_B # se o retorno é positivo, alinha a mantissa de b
 
 		ALINHAR_EXPOENTE_A: # Alinha a mantissa de 'a' com a de 'b' para ser possível fazer a soma
-			add $t0, $v0, $zero,
+			add $t0, $v0, $zero
+			andi $s5, $s1, 0x7F800000 # Guarda expoente do maior
 			ALINHAR_EXPOENTE_A_FOR:
 				beq $t0, $zero, ALINHAR_EXPOENTE_A_FOR_END
 				srl $s3, $s3, 1
@@ -164,6 +166,7 @@
 
 		ALINHAR_EXPOENTE_B: # Alinha a mantissa de 'b' com a de 'a' para ser possível fazer a soma
 			add $t0, $v0, $zero
+			andi $s5, $s0, 0x7F800000 # Guarda expoente do maior
 			ALINHAR_EXPOENTE_B_FOR:
 				beq $t0, $zero, ALINHAR_EXPOENTE_B_FOR_END
 				srl $s4, $s4, 1
@@ -173,8 +176,18 @@
 				j SOMAR_MANTISSA
 
 		SOMAR_MANTISSA:
+			andi $a0, $s0, 0x80000000 # bit do sinal
+			add $a1, $zero, $s3
+			jal TRANSFORM_COMP_2 # TRANSFORM_COMP_2(sinal, mantissa)
+			add $s3, $v0, $zero # pega o valor que foi ou não convertido pra comp de 2
+
+			andi $a0, $s1, 0x80000000 # bit do sinal
+			add $a1, $zero, $s4
+			jal TRANSFORM_COMP_2 # TRANSFORM_COMP_2(sinal, mantissa)
+			add $s4, $v0, $zero # pega o valor que foi ou não convertido pra comp de 2
+
 			add $a0, $s3, $s4 # soma as mantissas
-			add $a1, $t1, $zero
+			add $a1, $s5, $zero # passa o valor do maior expoente pra caso a soma já esteja normalizada
 			jal NORM_SINGLE
 
 		# desempilhar
