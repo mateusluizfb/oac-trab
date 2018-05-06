@@ -10,6 +10,8 @@
 	INSERIR_OPERANDO_2: 		.asciiz "Insira o segundo operando: \n"
 	ESCOLHER_OPERACAO_MSG:  .asciiz "Digite:\n - '1' para somar \n - '2' para multiplicar \n - '3' para sair \n"
 	RESULTADO_MSG: 					.asciiz "Resultado: "
+	OVERFLOW_MSG: 					.asciiz "Ocorreu um overflow"
+	UNDERFLOW_MSG: 					.asciiz "Ocorreu um underflow"
 
 .text
 
@@ -49,6 +51,20 @@
 	SAIR:
 		li $v0, 10 # 10 é o código para sair do programa
 		syscall
+
+	DISPARAR_OVERFLOW:
+		la $t1, OVERFLOW_MSG # Lê o endereço da mensagem de overflow
+		add $a0, $t1, $zero # Armazena a string para syscall
+		li $v0, 4 # 4 é o código para imprimir string
+		syscall
+		j SAIR
+
+	DISPARAR_UNDERFLOW:
+		la $t1, UNDERFLOW_MSG # Lê o endereço da mensagem de underflow
+		add $a0, $t1, $zero # Armazena a string para syscall
+		li $v0, 4 # 4 é o código para imprimir string
+		syscall
+		j SAIR
 
 	GET_EXP: # retorna o expoente (bit 32) da word passada em $a0
 		srl $t0, $a0, 31
@@ -92,10 +108,10 @@
 		sw $s0, 0($sp)
 
 		add $s1, $zero, $zero # expoente = 0
-		add $s0, $a0, $zero # $s0 = argumento 1
-		add $s2, $a1, $zero # $s1 = argumento 2
+		add $s0, $a0, $zero # $s0 = valor da mantissa
+		add $s2, $a1, $zero # $s1 = expoente do mairo
 		srl $s2, $s2, 23
-		add $s3, $a2, $zero # $s2 = argumento 3
+		add $s3, $a2, $zero # $s2 = sinal do maior
 
 		NORM_SINGLE_CHECAR_BIT_23:
 			andi $t0, $s0, 0x00800000 # Checa de o bit '23' é '1'
@@ -125,7 +141,12 @@
 			beq $t0, $t1, ARREDONDAR # se o ultimo bit for 9, arredonda para cima
 
 			andi $s0, $s0, 0x007FFFFF # pegar só a parte válida da mantissa (22 até o 0)
-			add $s1, $s2, $s1
+			add $s1, $s2, $s1 # soma o expoente do maior com a quantidade de shifts dados pra direita ou esquerda necessários para normalizar
+
+			addi $t3, $s1, -127 # expoente - 127 = expoente real (ex: 130 - 127 = 3) 
+			bge $t3, 128, DISPARAR_OVERFLOW # detecta overflow, expoente maior que 127
+			ble $t3, -127, DISPARAR_OVERFLOW # detecta underflow, expoente menor que 126
+
 			sll $s2, $s1, 23 # move tudo até o local do expoente no padrão IEEE
 			or $v0, $s2, $s0 # arruma expoente com a mantissa
 			or $v0, $v0, $s3 # bota o bit de sinal do maior
