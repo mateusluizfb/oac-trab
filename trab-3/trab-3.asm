@@ -115,7 +115,15 @@
 			addi $s1, $zero, -1 # expoente--
 			j NORM_SINGLE_CHECAR_BIT_23
 
+		ARREDONDAR:
+			addi $s0, $s0, 1
+			j NORM_SINGLE_RETORNAR
+
 		NORM_SINGLE_RETORNAR:
+			andi $t0, $s0, 0x0000000F
+			addi $t1, $zero, 9
+			beq $t0, $t1, ARREDONDAR # se o ultimo bit for 9, arredonda para cima
+
 			andi $s0, $s0, 0x007FFFFF # pegar só a parte válida da mantissa (22 até o 0)
 			add $s1, $s2, $s1
 			sll $s2, $s1, 23 # move tudo até o local do expoente no padrão IEEE
