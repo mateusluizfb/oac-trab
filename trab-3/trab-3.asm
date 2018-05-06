@@ -112,7 +112,7 @@
 		NORM_SINGLE_CHECAR_BIT_22_0:
 			beq $s0, $zero, NORM_SINGLE_RETORNAR # Se o valor for 0, só retorna o valor e não faz o shift left
 			sll $s0, $s0, 1
-			addi $s1, $zero, -1 # expoente--
+			addi $s1, $s1, -1 # expoente--
 			j NORM_SINGLE_CHECAR_BIT_23
 
 		ARREDONDAR:
@@ -162,8 +162,14 @@
 		add $a0, $s0, $zero
 		add $a1, $s1, $zero
 		jal SUB_EXP # SUBTRAIR expoente de A por expoente de B
-		andi $s5, $s0, 0x7F800000  # guarda valor do expoente, caso o valro da subtração seja 0
-		andi $s6, $s0, 0x80000000 # guarda bit do sinal
+
+		bge	$s0, $s1, SOMAR_SETAR_SINAL_DO_MAIOR
+		andi $s5, $s0, 0x7F800000  # guarda valor do maior expoente
+		andi $s6, $s0, 0x80000000  # guarda bit do sinal do maior
+		SOMAR_SETAR_SINAL_DO_MAIOR:
+			andi $s5, $s1, 0x7F800000 # guarda valor do maior expoente
+			andi $s6, $s1, 0x80000000 # guarda bit do sinal do maior
+
 		beq $v0, $zero, SOMAR_MANTISSA # se o retorno for 0, então vai direto pra soma
 
 		slt $t0, $v0, $zero # se retorno < 0 seta $t0 pra 1
