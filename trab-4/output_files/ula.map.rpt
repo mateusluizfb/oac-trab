@@ -1,5 +1,5 @@
 Analysis & Synthesis report for ula
-Sat Jun 02 17:08:49 2018
+Sat Jun 02 17:35:19 2018
 Quartus II 64-Bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
 
 
@@ -43,13 +43,13 @@ applicable agreement for further details.
 +--------------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                         ;
 +------------------------------------+-------------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Sat Jun 02 17:08:49 2018           ;
+; Analysis & Synthesis Status        ; Successful - Sat Jun 02 17:35:19 2018           ;
 ; Quartus II 64-Bit Version          ; 13.0.1 Build 232 06/12/2013 SP 1 SJ Web Edition ;
 ; Revision Name                      ; ula                                             ;
 ; Top-level Entity Name              ; ula                                             ;
 ; Family                             ; Cyclone II                                      ;
-; Total logic elements               ; 738                                             ;
-;     Total combinational functions  ; 738                                             ;
+; Total logic elements               ; 816                                             ;
+;     Total combinational functions  ; 816                                             ;
 ;     Dedicated logic registers      ; 0                                               ;
 ; Total registers                    ; 0                                               ;
 ; Total pins                         ; 113                                             ;
@@ -170,16 +170,16 @@ Parallel compilation was disabled, but you have multiple processors available. E
 +---------------------------------------------+-------+
 ; Resource                                    ; Usage ;
 +---------------------------------------------+-------+
-; Estimated Total logic elements              ; 738   ;
+; Estimated Total logic elements              ; 816   ;
 ;                                             ;       ;
-; Total combinational functions               ; 738   ;
+; Total combinational functions               ; 816   ;
 ; Logic element usage by number of LUT inputs ;       ;
-;     -- 4 input functions                    ; 475   ;
-;     -- 3 input functions                    ; 231   ;
-;     -- <=2 input functions                  ; 32    ;
+;     -- 4 input functions                    ; 518   ;
+;     -- 3 input functions                    ; 264   ;
+;     -- <=2 input functions                  ; 34    ;
 ;                                             ;       ;
 ; Logic elements by mode                      ;       ;
-;     -- normal mode                          ; 676   ;
+;     -- normal mode                          ; 754   ;
 ;     -- arithmetic mode                      ; 62    ;
 ;                                             ;       ;
 ; Total registers                             ; 0     ;
@@ -189,9 +189,9 @@ Parallel compilation was disabled, but you have multiple processors available. E
 ; I/O pins                                    ; 113   ;
 ; Embedded Multiplier 9-bit elements          ; 0     ;
 ; Maximum fan-out node                        ; A[0]  ;
-; Maximum fan-out                             ; 125   ;
-; Total fan-out                               ; 2691  ;
-; Average fan-out                             ; 3.16  ;
+; Maximum fan-out                             ; 128   ;
+; Total fan-out                               ; 2966  ;
+; Average fan-out                             ; 3.19  ;
 +---------------------------------------------+-------+
 
 
@@ -200,7 +200,7 @@ Parallel compilation was disabled, but you have multiple processors available. E
 +----------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+---------------------+--------------+
 ; Compilation Hierarchy Node ; LC Combinationals ; LC Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name ; Library Name ;
 +----------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+---------------------+--------------+
-; |ula                       ; 738 (738)         ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 113  ; 0            ; |ula                ; work         ;
+; |ula                       ; 816 (816)         ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 113  ; 0            ; |ula                ; work         ;
 +----------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+---------------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
 
@@ -236,8 +236,8 @@ Note: All latches listed above may not be present at the end of synthesis due to
 +--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------+
 ; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------+
-; 18:1               ; 14 bits   ; 168 LEs       ; 140 LEs              ; 28 LEs                 ; No         ; |ula|Selector20            ;
-; 18:1               ; 14 bits   ; 168 LEs       ; 140 LEs              ; 28 LEs                 ; No         ; |ula|Selector6             ;
+; 21:1               ; 14 bits   ; 196 LEs       ; 154 LEs              ; 42 LEs                 ; No         ; |ula|Selector6             ;
+; 21:1               ; 14 bits   ; 196 LEs       ; 154 LEs              ; 42 LEs                 ; No         ; |ula|Selector26            ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------+
 
 
@@ -256,7 +256,7 @@ Note: All latches listed above may not be present at the end of synthesis due to
 Info: *******************************************************************
 Info: Running Quartus II 64-Bit Analysis & Synthesis
     Info: Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
-    Info: Processing started: Sat Jun 02 17:08:43 2018
+    Info: Processing started: Sat Jun 02 17:35:14 2018
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off ula -c ula
 Warning (20028): Parallel compilation is not licensed and has been disabled
 Info (12021): Found 2 design units, including 1 entities, in source file ula.vhd
@@ -274,16 +274,14 @@ Warning (13012): Latch overflow_temp[0] has unsafe behavior
     Warning (13013): Ports D and ENA on the latch are fed by the same signal ULA_OP.ADD
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Warning (21074): Design contains 1 input pin(s) that do not drive logic
-    Warning (15610): No output dependent on input pin "ULA_OP.SRA_OP"
-Info (21057): Implemented 851 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 929 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 79 input pins
     Info (21059): Implemented 34 output pins
-    Info (21061): Implemented 738 logic cells
-Info: Quartus II 64-Bit Analysis & Synthesis was successful. 0 errors, 6 warnings
-    Info: Peak virtual memory: 501 megabytes
-    Info: Processing ended: Sat Jun 02 17:08:49 2018
-    Info: Elapsed time: 00:00:06
+    Info (21061): Implemented 816 logic cells
+Info: Quartus II 64-Bit Analysis & Synthesis was successful. 0 errors, 4 warnings
+    Info: Peak virtual memory: 493 megabytes
+    Info: Processing ended: Sat Jun 02 17:35:19 2018
+    Info: Elapsed time: 00:00:05
     Info: Total CPU time (on all processors): 00:00:05
 
 

@@ -275,6 +275,20 @@ ARCHITECTURE ula_arch OF ula_vhd_tst IS
 		wait for 10 ns;
 		assert (ula_out = x"AACCCBAA");
 		
+		-- TESTS SRA
+		
+		A <= std_LOGIC_VECTOR(to_signed(4, 32));
+		B <= x"FFFFFF01";
+		ULA_OP <= SRA_OP;
+		wait for 10 ns;
+		assert (ula_out = x"FFFFFFF0");
+		
+		A <= std_LOGIC_VECTOR(to_signed(8, 32));
+		B <= x"FFFFFF01";
+		ULA_OP <= SRA_OP;
+		wait for 10 ns;
+		assert (ula_out = x"FFFFFFFF");
+		
 	WAIT;                                                       
 END PROCESS init;                                                                                   
 END ula_arch;
