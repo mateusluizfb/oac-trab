@@ -42,10 +42,8 @@
 # Loading work.ula(ula_architeture)
 # 
 # add wave *
-# view structure
-# .main_pane.structure.interior.cs.body.struct
-# view signals
-# .main_pane.objects.interior.cs.body.tree
-# run -all
-# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
-#    Time: 20 ns  Iteration: 0  Instance: /ula_vhd_tst
+# ** Error: can't read "vsimPriv(.main_pane.wave.interior.cs.body.pw.wf:grid)": no such element in array
+# Error in macro ./ula_run_msim_rtl_vhdl.do line 15
+# can't read "vsimPriv(.main_pane.wave.interior.cs.body.pw.wf:grid)": no such element in array
+#     while executing
+# "add wave *"

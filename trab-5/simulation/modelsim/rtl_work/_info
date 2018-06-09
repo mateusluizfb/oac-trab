@@ -1,0 +1,79 @@
+m255
+K3
+13
+cModel Technology
+Z0 dC:\Users\Mateus Luiz\Documents\OAC\oac-trab\trab-5\simulation\modelsim
+Ebreg
+Z1 w1528560053
+Z2 DPx4 ieee 11 numeric_std 0 22 O3PF8EB`?j9=z7KT`fn941
+Z3 DPx3 std 6 textio 0 22 5>J:;AW>W0[[dW0I6EN1Q0
+Z4 DPx4 ieee 14 std_logic_1164 0 22 5=aWaoGZSMWIcH0i^f`XF1
+Z5 dC:\Users\Mateus Luiz\Documents\OAC\oac-trab\trab-5\simulation\modelsim
+Z6 8C:/Users/Mateus Luiz/Documents/OAC/oac-trab/trab-5/breg.vhd
+Z7 FC:/Users/Mateus Luiz/Documents/OAC/oac-trab/trab-5/breg.vhd
+l0
+L5
+VRz7i_iY:KHPzQSV7cQ5iM3
+Z8 OV;C;10.1d;51
+31
+Z9 !s108 1528561549.930000
+Z10 !s90 -reportprogress|300|-93|-work|work|C:/Users/Mateus Luiz/Documents/OAC/oac-trab/trab-5/breg.vhd|
+Z11 !s107 C:/Users/Mateus Luiz/Documents/OAC/oac-trab/trab-5/breg.vhd|
+Z12 o-93 -work work -O0
+Z13 tExplicit 1
+!s100 jT]Mh5HVeANF3V_5RWZAE2
+!i10b 1
+Abreg_architecture
+R2
+R3
+R4
+DEx4 work 4 breg 0 22 Rz7i_iY:KHPzQSV7cQ5iM3
+l22
+L18
+V3OQlEeoc4gJX3@j0<jSW61
+R8
+31
+R9
+R10
+R11
+R12
+R13
+!s100 I]LoAC5KlhiTJlHFzPbI:3
+!i10b 1
+Ebreg_vhd_tst
+Z14 w1528561355
+R2
+R3
+R4
+R5
+Z15 8C:/Users/Mateus Luiz/Documents/OAC/oac-trab/trab-5/breg_tb.vhd
+Z16 FC:/Users/Mateus Luiz/Documents/OAC/oac-trab/trab-5/breg_tb.vhd
+l0
+L31
+V8iO1X]LL8Yo]C02@SQOAn3
+!s100 D4L_mjRad=R^7:d[TZZWE1
+R8
+31
+!i10b 1
+Z17 !s108 1528561550.133000
+Z18 !s90 -reportprogress|300|-93|-work|work|C:/Users/Mateus Luiz/Documents/OAC/oac-trab/trab-5/breg_tb.vhd|
+Z19 !s107 C:/Users/Mateus Luiz/Documents/OAC/oac-trab/trab-5/breg_tb.vhd|
+R12
+R13
+Abreg_arch
+R2
+R3
+R4
+DEx4 work 12 breg_vhd_tst 0 22 8iO1X]LL8Yo]C02@SQOAn3
+l58
+L33
+VKdh^zicQMU97_g7cR>LIL0
+!s100 JLFC<@TaOH22]k_bXh3oJ0
+R8
+31
+!i10b 1
+R17
+R18
+R19
+R12
+R13
