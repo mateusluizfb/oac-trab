@@ -1,4 +1,4 @@
-|ram
+|mem_instrucoes
 address[0] => altsyncram:altsyncram_component.address_a[0]
 address[1] => altsyncram:altsyncram_component.address_a[1]
 address[2] => altsyncram:altsyncram_component.address_a[2]
@@ -75,7 +75,7 @@ q[30] <= altsyncram:altsyncram_component.q_a[30]
 q[31] <= altsyncram:altsyncram_component.q_a[31]
 
 
-|ram|altsyncram:altsyncram_component
+|mem_instrucoes|altsyncram:altsyncram_component
 wren_a => altsyncram_vdd1:auto_generated.wren_a
 rden_a => ~NO_FANOUT~
 wren_b => ~NO_FANOUT~
@@ -172,7 +172,7 @@ eccstatus[1] <= <GND>
 eccstatus[2] <= <GND>
 
 
-|ram|altsyncram:altsyncram_component|altsyncram_vdd1:auto_generated
+|mem_instrucoes|altsyncram:altsyncram_component|altsyncram_vdd1:auto_generated
 address_a[0] => ram_block1a0.PORTAADDR
 address_a[0] => ram_block1a1.PORTAADDR
 address_a[0] => ram_block1a2.PORTAADDR

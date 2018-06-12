@@ -13,7 +13,7 @@
 --applicable agreement for further details.
 
 
-component ram
+component mem_instrucoes
 	PORT
 	(
 		address		: IN STD_LOGIC_VECTOR (7 DOWNTO 0);

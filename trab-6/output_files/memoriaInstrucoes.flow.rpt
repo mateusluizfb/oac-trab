@@ -1,5 +1,5 @@
 Flow report for memoriaInstrucoes
-Tue Jun 12 19:28:32 2018
+Tue Jun 12 19:40:27 2018
 Quartus II 64-Bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
 
 
@@ -40,10 +40,10 @@ applicable agreement for further details.
 +--------------------------------------------------------------------------------------+
 ; Flow Summary                                                                         ;
 +------------------------------------+-------------------------------------------------+
-; Flow Status                        ; Successful - Tue Jun 12 19:28:32 2018           ;
+; Flow Status                        ; Successful - Tue Jun 12 19:40:27 2018           ;
 ; Quartus II 64-Bit Version          ; 13.0.1 Build 232 06/12/2013 SP 1 SJ Web Edition ;
 ; Revision Name                      ; memoriaInstrucoes                               ;
-; Top-level Entity Name              ; ram                                             ;
+; Top-level Entity Name              ; mem_instrucoes                                  ;
 ; Family                             ; Cyclone II                                      ;
 ; Device                             ; EP2C70F896C6                                    ;
 ; Timing Models                      ; Final                                           ;
@@ -64,33 +64,33 @@ applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 06/12/2018 19:28:18 ;
+; Start date & time ; 06/12/2018 19:40:13 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; memoriaInstrucoes   ;
 +-------------------+---------------------+
 
 
-+---------------------------------------------------------------------------------------------------------------------------------------------+
-; Flow Non-Default Global Settings                                                                                                            ;
-+-------------------------------------+----------------------------------------------------+-------------------+-------------+----------------+
-; Assignment Name                     ; Value                                              ; Default Value     ; Entity Name ; Section Id     ;
-+-------------------------------------+----------------------------------------------------+-------------------+-------------+----------------+
-; COMPILER_SIGNATURE_ID               ; 242250652159635.152884249803636                    ; --                ; --          ; --             ;
-; EDA_NETLIST_WRITER_OUTPUT_DIR       ; C:\Users\Mateus Luiz\Documents\OAC\oac-trab\trab-6 ; --                ; --          ; eda_simulation ;
-; EDA_OUTPUT_DATA_FORMAT              ; Vhdl                                               ; --                ; --          ; eda_simulation ;
-; EDA_SIMULATION_TOOL                 ; ModelSim-Altera (VHDL)                             ; <None>            ; --          ; --             ;
-; IP_TOOL_NAME                        ; RAM: 1-PORT                                        ; --                ; --          ; --             ;
-; IP_TOOL_VERSION                     ; 13.0                                               ; --                ; --          ; --             ;
-; MAX_CORE_JUNCTION_TEMP              ; 85                                                 ; --                ; --          ; --             ;
-; MIN_CORE_JUNCTION_TEMP              ; 0                                                  ; --                ; --          ; --             ;
-; MISC_FILE                           ; ram_inst.vhd                                       ; --                ; --          ; --             ;
-; MISC_FILE                           ; ram.cmp                                            ; --                ; --          ; --             ;
-; PARTITION_COLOR                     ; 16764057                                           ; --                ; ram         ; Top            ;
-; PARTITION_FITTER_PRESERVATION_LEVEL ; PLACEMENT_AND_ROUTING                              ; --                ; ram         ; Top            ;
-; PARTITION_NETLIST_TYPE              ; SOURCE                                             ; --                ; ram         ; Top            ;
-; PROJECT_OUTPUT_DIRECTORY            ; output_files                                       ; --                ; --          ; --             ;
-; TOP_LEVEL_ENTITY                    ; ram                                                ; memoriaInstrucoes ; --          ; --             ;
-+-------------------------------------+----------------------------------------------------+-------------------+-------------+----------------+
++------------------------------------------------------------------------------------------------------------------------------------------------+
+; Flow Non-Default Global Settings                                                                                                               ;
++-------------------------------------+----------------------------------------------------+-------------------+----------------+----------------+
+; Assignment Name                     ; Value                                              ; Default Value     ; Entity Name    ; Section Id     ;
++-------------------------------------+----------------------------------------------------+-------------------+----------------+----------------+
+; COMPILER_SIGNATURE_ID               ; 242250652159635.152884321308644                    ; --                ; --             ; --             ;
+; EDA_NETLIST_WRITER_OUTPUT_DIR       ; C:\Users\Mateus Luiz\Documents\OAC\oac-trab\trab-6 ; --                ; --             ; eda_simulation ;
+; EDA_OUTPUT_DATA_FORMAT              ; Vhdl                                               ; --                ; --             ; eda_simulation ;
+; EDA_SIMULATION_TOOL                 ; ModelSim-Altera (VHDL)                             ; <None>            ; --             ; --             ;
+; IP_TOOL_NAME                        ; RAM: 1-PORT                                        ; --                ; --             ; --             ;
+; IP_TOOL_VERSION                     ; 13.0                                               ; --                ; --             ; --             ;
+; MAX_CORE_JUNCTION_TEMP              ; 85                                                 ; --                ; --             ; --             ;
+; MIN_CORE_JUNCTION_TEMP              ; 0                                                  ; --                ; --             ; --             ;
+; MISC_FILE                           ; mem_instrucoes_inst.vhd                            ; --                ; --             ; --             ;
+; MISC_FILE                           ; mem_instrucoes.cmp                                 ; --                ; --             ; --             ;
+; PARTITION_COLOR                     ; 16764057                                           ; --                ; mem_instrucoes ; Top            ;
+; PARTITION_FITTER_PRESERVATION_LEVEL ; PLACEMENT_AND_ROUTING                              ; --                ; mem_instrucoes ; Top            ;
+; PARTITION_NETLIST_TYPE              ; SOURCE                                             ; --                ; mem_instrucoes ; Top            ;
+; PROJECT_OUTPUT_DIRECTORY            ; output_files                                       ; --                ; --             ; --             ;
+; TOP_LEVEL_ENTITY                    ; mem_instrucoes                                     ; memoriaInstrucoes ; --             ; --             ;
++-------------------------------------+----------------------------------------------------+-------------------+----------------+----------------+
 
 
 +--------------------------------------------------------------------------------------------------------------------------+
@@ -98,9 +98,9 @@ applicable agreement for further details.
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis ; 00:00:03     ; 1.0                     ; 523 MB              ; 00:00:02                           ;
-; EDA Netlist Writer   ; 00:00:01     ; 1.0                     ; 394 MB              ; 00:00:01                           ;
-; Total                ; 00:00:04     ; --                      ; --                  ; 00:00:03                           ;
+; Analysis & Synthesis ; 00:00:02     ; 1.0                     ; 522 MB              ; 00:00:02                           ;
+; EDA Netlist Writer   ; 00:00:00     ; 1.0                     ; 394 MB              ; 00:00:01                           ;
+; Total                ; 00:00:02     ; --                      ; --                  ; 00:00:03                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 

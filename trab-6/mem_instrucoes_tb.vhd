@@ -17,9 +17,9 @@
 -- suit user's needs .Comments are provided in each section to help the user  
 -- fill out necessary details.                                                
 -- ***************************************************************************
--- Generated on "06/12/2018 19:28:32"
+-- Generated on "06/12/2018 19:40:27"
                                                             
--- Vhdl Test Bench template for design  :  ram
+-- Vhdl Test Bench template for design  :  mem_instrucoes
 -- 
 -- Simulation tool : ModelSim-Altera (VHDL)
 -- 
@@ -27,9 +27,9 @@
 LIBRARY ieee;                                               
 USE ieee.std_logic_1164.all;                                
 
-ENTITY ram_vhd_tst IS
-END ram_vhd_tst;
-ARCHITECTURE ram_arch OF ram_vhd_tst IS
+ENTITY mem_instrucoes_vhd_tst IS
+END mem_instrucoes_vhd_tst;
+ARCHITECTURE mem_instrucoes_arch OF mem_instrucoes_vhd_tst IS
 -- constants                                                 
 -- signals                                                   
 SIGNAL address : STD_LOGIC_VECTOR(7 DOWNTO 0);
@@ -37,7 +37,7 @@ SIGNAL clock : STD_LOGIC;
 SIGNAL data : STD_LOGIC_VECTOR(31 DOWNTO 0);
 SIGNAL q : STD_LOGIC_VECTOR(31 DOWNTO 0);
 SIGNAL wren : STD_LOGIC;
-COMPONENT ram
+COMPONENT mem_instrucoes
 	PORT (
 	address : IN STD_LOGIC_VECTOR(7 DOWNTO 0);
 	clock : IN STD_LOGIC;
@@ -47,7 +47,7 @@ COMPONENT ram
 	);
 END COMPONENT;
 BEGIN
-	i1 : ram
+	i1 : mem_instrucoes
 	PORT MAP (
 -- list connections between master ports and signals
 	address => address,
@@ -70,4 +70,4 @@ BEGIN
         -- code executes for every event on sensitivity list  
 WAIT;                                                        
 END PROCESS always;                                          
-END ram_arch;
+END mem_instrucoes_arch;
