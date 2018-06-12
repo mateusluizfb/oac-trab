@@ -9,7 +9,7 @@ vcom -93 -work work {C:/Users/Mateus Luiz/Documents/OAC/oac-trab/trab-5/breg.vhd
 
 vcom -93 -work work {C:/Users/Mateus Luiz/Documents/OAC/oac-trab/trab-5/breg_tb.vhd}
 
-vsim -t 1ps -L altera -L lpm -L sgate -L altera_mf -L altera_lnsim -L cycloneiv_hssi -L cycloneiv_pcie_hip -L cycloneiv -L rtl_work -L work -voptargs="+acc"  breg_tb
+vsim -t 1ps -L altera -L lpm -L sgate -L altera_mf -L altera_lnsim -L cycloneii -L rtl_work -L work -voptargs="+acc"  breg_tb
 
 add wave *
 view structure
