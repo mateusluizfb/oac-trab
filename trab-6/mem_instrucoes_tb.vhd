@@ -27,9 +27,9 @@
 LIBRARY ieee;                                               
 USE ieee.std_logic_1164.all;                                
 
-ENTITY mem_instrucoes_vhd_tst IS
-END mem_instrucoes_vhd_tst;
-ARCHITECTURE mem_instrucoes_arch OF mem_instrucoes_vhd_tst IS
+ENTITY mem_instrucoes_test IS
+END mem_instrucoes_test;
+ARCHITECTURE mem_instrucoes_arch OF mem_instrucoes_test IS
 -- constants                                                 
 -- signals                                                   
 SIGNAL address : STD_LOGIC_VECTOR(7 DOWNTO 0);
@@ -58,16 +58,113 @@ BEGIN
 	);
 init : PROCESS                                               
 -- variable declarations                                     
-BEGIN                                                        
-        -- code that executes only once                      
+BEGIN             
+	wren <= '0';
+                            
+	clock <= '0';
+	wait for 10 ns;
+
+	address <= "00000000";
+	clock <= '1';
+	wait for 10 ns;
+	assert (q = X"20082000");
+	
+	clock <= '0';
+	wait for 10 ns;
+	
+	address <= "00000001";
+	clock <= '1';
+	wait for 10 ns;
+	assert (q = X"8d090000");
+	
+	clock <= '0';
+	wait for 10 ns;
+	
+	address <= "00000010";
+	clock <= '1';
+	wait for 10 ns;
+	assert (q = X"8d0a0004");
+	
+	clock <= '0';
+	wait for 10 ns;
+	
+	address <= "00000011";
+	clock <= '1';
+	wait for 10 ns;
+	assert (q = X"8d0b0008");
+	
+	clock <= '0';
+	wait for 10 ns;
+	
+	address <= "00000100";
+	clock <= '1';
+	wait for 10 ns;
+	assert (q = X"8d0c000c");
+	
+	clock <= '0';
+	wait for 10 ns;
+	
+	address <= "00000101";
+	clock <= '1';
+	wait for 10 ns;
+	assert (q = X"8d0d0010");
+	
+	clock <= '0';
+	wait for 10 ns;
+	
+	address <= "00000110";
+	clock <= '1';
+	wait for 10 ns;
+	assert (q = X"01498020");
+	
+	clock <= '0';
+	wait for 10 ns;
+	
+	address <= "00000111";
+	clock <= '1';
+	wait for 10 ns;
+	assert (q = X"01498822");
+	
+	clock <= '0';
+	wait for 10 ns;
+	
+	address <= "00001000";
+	clock <= '1';
+	wait for 10 ns;
+	assert (q = X"018d9024");
+	
+	clock <= '0';
+	wait for 10 ns;
+	
+	address <= "00001001";
+	clock <= '1';
+	wait for 10 ns;
+	assert (q = X"012b982a");
+	
+	-- Escrever e ler
+	
+	wren <= '1';
+	
+	clock <= '0';
+	wait for 10 ns;
+	
+	address <= "00001010";
+	data <= X"FFFFFFFF";
+	clock <= '1';
+	wait for 10 ns;
+	
+	clock <= '0';
+	wait for 10 ns;
+	
+	data <= X"00000000";
+	wren <= '0';
+	address <= "00001010";
+	clock <= '1';
+	wait for 10 ns;
+	assert (q = X"FFFFFFFF");
+
+	clock <= '0';
+	
 WAIT;                                                       
 END PROCESS init;                                           
-always : PROCESS                                              
--- optional sensitivity list                                  
--- (        )                                                 
--- variable declarations                                      
-BEGIN                                                         
-        -- code executes for every event on sensitivity list  
-WAIT;                                                        
-END PROCESS always;                                          
 END mem_instrucoes_arch;

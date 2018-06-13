@@ -1,5 +1,5 @@
 Analysis & Synthesis report for memoriaInstrucoes
-Tue Jun 12 19:40:14 2018
+Wed Jun 13 20:51:12 2018
 Quartus II 64-Bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
 
 
@@ -16,7 +16,7 @@ Quartus II 64-Bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edit
   8. Analysis & Synthesis RAM Summary
   9. Analysis & Synthesis IP Cores Summary
  10. General Register Statistics
- 11. Source assignments for altsyncram:altsyncram_component|altsyncram_vdd1:auto_generated
+ 11. Source assignments for altsyncram:altsyncram_component|altsyncram_k4e1:auto_generated
  12. Parameter Settings for User Entity Instance: altsyncram:altsyncram_component
  13. altsyncram Parameter Settings by Entity Instance
  14. Elapsed Time Per Partition
@@ -46,7 +46,7 @@ applicable agreement for further details.
 +--------------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                         ;
 +------------------------------------+-------------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Tue Jun 12 19:40:14 2018           ;
+; Analysis & Synthesis Status        ; Successful - Wed Jun 13 20:51:12 2018           ;
 ; Quartus II 64-Bit Version          ; 13.0.1 Build 232 06/12/2013 SP 1 SJ Web Edition ;
 ; Revision Name                      ; memoriaInstrucoes                               ;
 ; Top-level Entity Name              ; mem_instrucoes                                  ;
@@ -164,8 +164,8 @@ Parallel compilation was disabled, but you have multiple processors available. E
 +----------------------------------+-----------------+----------------------------------+---------------------------------------------------------------------------+---------+
 ; File Name with User-Entered Path ; Used in Netlist ; File Type                        ; File Name with Absolute Path                                              ; Library ;
 +----------------------------------+-----------------+----------------------------------+---------------------------------------------------------------------------+---------+
-; memoriaInstrucoes.mif            ; yes             ; User Memory Initialization File  ; C:/Users/Mateus Luiz/Documents/OAC/oac-trab/trab-6/memoriaInstrucoes.mif  ;         ;
 ; mem_instrucoes.vhd               ; yes             ; User Wizard-Generated File       ; C:/Users/Mateus Luiz/Documents/OAC/oac-trab/trab-6/mem_instrucoes.vhd     ;         ;
+; memoriaInstrucoes.mif            ; yes             ; User Memory Initialization File  ; C:/Users/Mateus Luiz/Documents/OAC/oac-trab/trab-6/memoriaInstrucoes.mif  ;         ;
 ; altsyncram.tdf                   ; yes             ; Megafunction                     ; c:/altera/13.0sp1/quartus/libraries/megafunctions/altsyncram.tdf          ;         ;
 ; stratix_ram_block.inc            ; yes             ; Megafunction                     ; c:/altera/13.0sp1/quartus/libraries/megafunctions/stratix_ram_block.inc   ;         ;
 ; lpm_mux.inc                      ; yes             ; Megafunction                     ; c:/altera/13.0sp1/quartus/libraries/megafunctions/lpm_mux.inc             ;         ;
@@ -175,7 +175,7 @@ Parallel compilation was disabled, but you have multiple processors available. E
 ; altrom.inc                       ; yes             ; Megafunction                     ; c:/altera/13.0sp1/quartus/libraries/megafunctions/altrom.inc              ;         ;
 ; altram.inc                       ; yes             ; Megafunction                     ; c:/altera/13.0sp1/quartus/libraries/megafunctions/altram.inc              ;         ;
 ; altdpram.inc                     ; yes             ; Megafunction                     ; c:/altera/13.0sp1/quartus/libraries/megafunctions/altdpram.inc            ;         ;
-; db/altsyncram_vdd1.tdf           ; yes             ; Auto-Generated Megafunction      ; C:/Users/Mateus Luiz/Documents/OAC/oac-trab/trab-6/db/altsyncram_vdd1.tdf ;         ;
+; db/altsyncram_k4e1.tdf           ; yes             ; Auto-Generated Megafunction      ; C:/Users/Mateus Luiz/Documents/OAC/oac-trab/trab-6/db/altsyncram_k4e1.tdf ;         ;
 +----------------------------------+-----------------+----------------------------------+---------------------------------------------------------------------------+---------+
 
 
@@ -216,7 +216,7 @@ Parallel compilation was disabled, but you have multiple processors available. E
 +----------------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+--------------------------------------------------------------------------------+--------------+
 ; |mem_instrucoes                        ; 0 (0)             ; 0 (0)        ; 8192        ; 0            ; 0       ; 0         ; 74   ; 0            ; |mem_instrucoes                                                                ; work         ;
 ;    |altsyncram:altsyncram_component|   ; 0 (0)             ; 0 (0)        ; 8192        ; 0            ; 0       ; 0         ; 0    ; 0            ; |mem_instrucoes|altsyncram:altsyncram_component                                ; work         ;
-;       |altsyncram_vdd1:auto_generated| ; 0 (0)             ; 0 (0)        ; 8192        ; 0            ; 0       ; 0         ; 0    ; 0            ; |mem_instrucoes|altsyncram:altsyncram_component|altsyncram_vdd1:auto_generated ; work         ;
+;       |altsyncram_k4e1:auto_generated| ; 0 (0)             ; 0 (0)        ; 8192        ; 0            ; 0       ; 0         ; 0    ; 0            ; |mem_instrucoes|altsyncram:altsyncram_component|altsyncram_k4e1:auto_generated ; work         ;
 +----------------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+--------------------------------------------------------------------------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
 
@@ -226,7 +226,7 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +---------------------------------------------------------------------------+------+-------------+--------------+--------------+--------------+--------------+------+-----------------------+
 ; Name                                                                      ; Type ; Mode        ; Port A Depth ; Port A Width ; Port B Depth ; Port B Width ; Size ; MIF                   ;
 +---------------------------------------------------------------------------+------+-------------+--------------+--------------+--------------+--------------+------+-----------------------+
-; altsyncram:altsyncram_component|altsyncram_vdd1:auto_generated|ALTSYNCRAM ; AUTO ; Single Port ; 256          ; 32           ; --           ; --           ; 8192 ; memoriaInstrucoes.mif ;
+; altsyncram:altsyncram_component|altsyncram_k4e1:auto_generated|ALTSYNCRAM ; AUTO ; Single Port ; 256          ; 32           ; --           ; --           ; 8192 ; memoriaInstrucoes.mif ;
 +---------------------------------------------------------------------------+------+-------------+--------------+--------------+--------------+--------------+------+-----------------------+
 
 
@@ -255,7 +255,7 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 
 
 +---------------------------------------------------------------------------------------+
-; Source assignments for altsyncram:altsyncram_component|altsyncram_vdd1:auto_generated ;
+; Source assignments for altsyncram:altsyncram_component|altsyncram_k4e1:auto_generated ;
 +---------------------------------+--------------------+------+-------------------------+
 ; Assignment                      ; Value              ; From ; To                      ;
 +---------------------------------+--------------------+------+-------------------------+
@@ -278,7 +278,7 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; WIDTH_A                            ; 32                    ; Signed Integer  ;
 ; WIDTHAD_A                          ; 8                     ; Signed Integer  ;
 ; NUMWORDS_A                         ; 256                   ; Signed Integer  ;
-; OUTDATA_REG_A                      ; CLOCK0                ; Untyped         ;
+; OUTDATA_REG_A                      ; UNREGISTERED          ; Untyped         ;
 ; ADDRESS_ACLR_A                     ; NONE                  ; Untyped         ;
 ; OUTDATA_ACLR_A                     ; NONE                  ; Untyped         ;
 ; WRCONTROL_ACLR_A                   ; NONE                  ; Untyped         ;
@@ -319,7 +319,7 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; ECC_PIPELINE_STAGE_ENABLED         ; FALSE                 ; Untyped         ;
 ; WIDTH_ECCSTATUS                    ; 3                     ; Untyped         ;
 ; DEVICE_FAMILY                      ; Cyclone II            ; Untyped         ;
-; CBXI_PARAMETER                     ; altsyncram_vdd1       ; Untyped         ;
+; CBXI_PARAMETER                     ; altsyncram_k4e1       ; Untyped         ;
 +------------------------------------+-----------------------+-----------------+
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
 
@@ -334,7 +334,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 ;     -- OPERATION_MODE                     ; SINGLE_PORT                     ;
 ;     -- WIDTH_A                            ; 32                              ;
 ;     -- NUMWORDS_A                         ; 256                             ;
-;     -- OUTDATA_REG_A                      ; CLOCK0                          ;
+;     -- OUTDATA_REG_A                      ; UNREGISTERED                    ;
 ;     -- WIDTH_B                            ; 1                               ;
 ;     -- NUMWORDS_B                         ; 1                               ;
 ;     -- ADDRESS_REG_B                      ; CLOCK1                          ;
@@ -359,9 +359,12 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus II 64-Bit Analysis & Synthesis
     Info: Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
-    Info: Processing started: Tue Jun 12 19:40:12 2018
+    Info: Processing started: Wed Jun 13 20:51:10 2018
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off memoriaInstrucoes -c memoriaInstrucoes
 Warning (20028): Parallel compilation is not licensed and has been disabled
+Info (12021): Found 2 design units, including 1 entities, in source file mem_instrucoes_tb.vhd
+    Info (12022): Found design unit 1: mem_instrucoes_test-mem_instrucoes_arch
+    Info (12023): Found entity 1: mem_instrucoes_test
 Info (12021): Found 2 design units, including 1 entities, in source file mem_instrucoes.vhd
     Info (12022): Found design unit 1: mem_instrucoes-SYN
     Info (12023): Found entity 1: mem_instrucoes
@@ -378,14 +381,14 @@ Info (12133): Instantiated megafunction "altsyncram:altsyncram_component" with t
     Info (12134): Parameter "numwords_a" = "256"
     Info (12134): Parameter "operation_mode" = "SINGLE_PORT"
     Info (12134): Parameter "outdata_aclr_a" = "NONE"
-    Info (12134): Parameter "outdata_reg_a" = "CLOCK0"
+    Info (12134): Parameter "outdata_reg_a" = "UNREGISTERED"
     Info (12134): Parameter "power_up_uninitialized" = "FALSE"
     Info (12134): Parameter "widthad_a" = "8"
     Info (12134): Parameter "width_a" = "32"
     Info (12134): Parameter "width_byteena_a" = "1"
-Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_vdd1.tdf
-    Info (12023): Found entity 1: altsyncram_vdd1
-Info (12128): Elaborating entity "altsyncram_vdd1" for hierarchy "altsyncram:altsyncram_component|altsyncram_vdd1:auto_generated"
+Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_k4e1.tdf
+    Info (12023): Found entity 1: altsyncram_k4e1
+Info (12128): Elaborating entity "altsyncram_k4e1" for hierarchy "altsyncram:altsyncram_component|altsyncram_k4e1:auto_generated"
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
 Info (21057): Implemented 106 device resources after synthesis - the final resource count might be different
@@ -393,8 +396,8 @@ Info (21057): Implemented 106 device resources after synthesis - the final resou
     Info (21059): Implemented 32 output pins
     Info (21064): Implemented 32 RAM segments
 Info: Quartus II 64-Bit Analysis & Synthesis was successful. 0 errors, 1 warning
-    Info: Peak virtual memory: 522 megabytes
-    Info: Processing ended: Tue Jun 12 19:40:14 2018
+    Info: Peak virtual memory: 523 megabytes
+    Info: Processing ended: Wed Jun 13 20:51:12 2018
     Info: Elapsed time: 00:00:02
     Info: Total CPU time (on all processors): 00:00:02
 
