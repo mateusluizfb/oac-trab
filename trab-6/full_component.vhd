@@ -7,6 +7,8 @@ entity full_component is
 		clock					: IN STD_LOGIC ;
 		inst_mem_data		: IN STD_LOGIC_VECTOR (31 DOWNTO 0);
 		inst_mem_wren		: IN STD_LOGIC;
+		custom_pc_addres  : IN STD_LOGIC_vector(31 DOWNTO 0);
+		PC_MUX_SWITCH		: IN STD_LOGIC;
 		component_out		: OUT STD_LOGIC_VECTOR (31 DOWNTO 0)
 	);
 end entity;
@@ -51,8 +53,7 @@ architecture full_component_arch of full_component is
 	signal pc_out : std_LOGIC_VECTOR(31 downto 0) := "00000000000000000000000000000000";
 
 	signal adder_to_pc : std_logic_vector(31 downto 0);
-	signal q : std_logic_vector(31 downto 0);
-
+	signal mux_to_pc : std_logic_vector(31 downto 0);
 begin
 	i1 : mem_instrucoes
 	PORT MAP (
@@ -60,7 +61,7 @@ begin
 		clock 	=> clock,
 		data 		=> inst_mem_data,
 		wren 		=> inst_mem_wren,
-		q			=> q
+		q			=> component_out
 	);
 	
 	i2: pc_adder
@@ -71,15 +72,22 @@ begin
 	
 	i3: pc_register
 	PORT MAP (
-		data => adder_to_pc,
+		data => mux_to_pc,
 		register_data	=> pc_out,
 		clock => clock
+	);
+	
+	i4: mux_2_inputs
+	PORT MAP (
+		a_input 	 => adder_to_pc,
+		b_input 	 => custom_pc_addres,
+		switch 	 => pc_mux_SWITCH,
+		out_input => mux_to_pc
 	);
 
 	init: process (clock) is
 	begin
 		if(clock = '1' and clock'event) then
-			component_out 		<= q;				 -- Pega o valor do retorno da memoria e passa pra saída
 		end if;
 	end process;
 end architecture;

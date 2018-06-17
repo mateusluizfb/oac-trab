@@ -13,7 +13,7 @@ end entity;
 
 architecture mux_2_inputs_arch of mux_2_inputs is
 begin
-	init: process(a_input, b_input) is
+	init: process(a_input, b_input, switch) is
 	begin
 		case switch is
 			when '0' 	=> out_input <= a_input;

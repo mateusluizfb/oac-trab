@@ -66,6 +66,12 @@ BEGIN
 	clock <= '0';
 	wait for 10 ns;
 	
+	clock <= '1';
+	wait for 10 ns;
+	
+	clock <= '0';
+	wait for 10 ns;
+	
 
 													
         -- code that executes only once                      
