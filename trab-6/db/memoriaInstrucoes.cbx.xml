@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <LOG_ROOT>
 	<PROJECT NAME="memoriaInstrucoes">
-		<CBX_INST_ENTRY INSTANCE_NAME="|mem_instrucoes|altsyncram:altsyncram_component" CBX_FILE_NAME="altsyncram_k4e1.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|full_component|mem_instrucoes:i1|altsyncram:altsyncram_component" CBX_FILE_NAME="altsyncram_k4e1.tdf"/>
 	</PROJECT>
 </LOG_ROOT>

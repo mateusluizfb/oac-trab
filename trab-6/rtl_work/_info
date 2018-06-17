@@ -3,73 +3,182 @@ K3
 13
 cModel Technology
 Z0 dC:\Users\Mateus Luiz\Documents\OAC\oac-trab\trab-6
-Emem_instrucoes
-Z1 w1528933420
-Z2 DPx3 std 6 textio 0 22 5>J:;AW>W0[[dW0I6EN1Q0
-Z3 DPx4 ieee 14 std_logic_1164 0 22 5=aWaoGZSMWIcH0i^f`XF1
-Z4 dC:\Users\Mateus Luiz\Documents\OAC\oac-trab\trab-6
-Z5 8C:/Users/Mateus Luiz/Documents/OAC/oac-trab/trab-6/mem_instrucoes.vhd
-Z6 FC:/Users/Mateus Luiz/Documents/OAC/oac-trab/trab-6/mem_instrucoes.vhd
+Efull_component
+Z1 w1529272828
+Z2 DPx4 ieee 11 numeric_std 0 22 O3PF8EB`?j9=z7KT`fn941
+Z3 DPx3 std 6 textio 0 22 5>J:;AW>W0[[dW0I6EN1Q0
+Z4 DPx4 ieee 14 std_logic_1164 0 22 5=aWaoGZSMWIcH0i^f`XF1
+Z5 dC:\Users\Mateus Luiz\Documents\OAC\oac-trab\trab-6
+Z6 8C:/Users/Mateus Luiz/Documents/OAC/oac-trab/trab-6/full_component.vhd
+Z7 FC:/Users/Mateus Luiz/Documents/OAC/oac-trab/trab-6/full_component.vhd
 l0
-L42
-VAYEHP:5M79Rj;Yk009a;81
-Z7 OV;C;10.1d;51
+L5
+VJdj_AkZOc?[GX7;YKjb6Q1
+Z8 OV;C;10.1d;51
 31
-Z8 !s108 1528933905.690000
-Z9 !s90 -reportprogress|300|-93|-work|work|C:/Users/Mateus Luiz/Documents/OAC/oac-trab/trab-6/mem_instrucoes.vhd|
-Z10 !s107 C:/Users/Mateus Luiz/Documents/OAC/oac-trab/trab-6/mem_instrucoes.vhd|
-Z11 o-93 -work work -O0
-Z12 tExplicit 1
-!s100 z^T?Al6ATd1hbnm2KK>7o1
+Z9 !s108 1529272940.416000
+Z10 !s90 -reportprogress|300|-93|-work|work|C:/Users/Mateus Luiz/Documents/OAC/oac-trab/trab-6/full_component.vhd|
+Z11 !s107 C:/Users/Mateus Luiz/Documents/OAC/oac-trab/trab-6/full_component.vhd|
+Z12 o-93 -work work -O0
+Z13 tExplicit 1
+!s100 =LF>3n>`gBn>2RhO58TzQ3
 !i10b 1
-Asyn
+Afull_component_arch
 R2
 R3
-DEx4 work 14 mem_instrucoes 0 22 AYEHP:5M79Rj;Yk009a;81
-l86
-L54
-Vi=9`WBzYMLTZCH5z0Oo@V0
-R7
-31
+R4
+DEx4 work 14 full_component 0 22 Jdj_AkZOc?[GX7;YKjb6Q1
+l56
+L14
+VMUNXVf5[bMC?hl`NUGb@N1
 R8
+31
 R9
 R10
 R11
 R12
+R13
+!s100 oC8@9S3lS`F@WCb1S1n[e0
+!i10b 1
+Efull_component_test
+Z14 w1529272884
+R3
+R4
+R5
+Z15 8C:/Users/Mateus Luiz/Documents/OAC/oac-trab/trab-6/full_component_tb.vhd
+Z16 FC:/Users/Mateus Luiz/Documents/OAC/oac-trab/trab-6/full_component_tb.vhd
+l0
+L30
+VLEl30?o?VjD5Cg8N9nk@b1
+!s100 OfZW2W8=TLRa]^N4213K:1
+R8
+31
+!i10b 1
+Z17 !s108 1529272940.609000
+Z18 !s90 -reportprogress|300|-93|-work|work|C:/Users/Mateus Luiz/Documents/OAC/oac-trab/trab-6/full_component_tb.vhd|
+Z19 !s107 C:/Users/Mateus Luiz/Documents/OAC/oac-trab/trab-6/full_component_tb.vhd|
+R12
+R13
+Afull_component_arch
+R3
+R4
+DEx4 work 19 full_component_test 0 22 LEl30?o?VjD5Cg8N9nk@b1
+l47
+L32
+V]6kmA2DWH0JOUfdHlgamW0
+!s100 DKVdWVzMIZboMLFIGRbS?1
+R8
+31
+!i10b 1
+R17
+R18
+R19
+R12
+R13
+Emem_instrucoes
+Z20 w1528933420
+R3
+R4
+R5
+Z21 8C:/Users/Mateus Luiz/Documents/OAC/oac-trab/trab-6/mem_instrucoes.vhd
+Z22 FC:/Users/Mateus Luiz/Documents/OAC/oac-trab/trab-6/mem_instrucoes.vhd
+l0
+L42
+VAYEHP:5M79Rj;Yk009a;81
+R8
+31
+Z23 !s108 1529272940.220000
+Z24 !s90 -reportprogress|300|-93|-work|work|C:/Users/Mateus Luiz/Documents/OAC/oac-trab/trab-6/mem_instrucoes.vhd|
+Z25 !s107 C:/Users/Mateus Luiz/Documents/OAC/oac-trab/trab-6/mem_instrucoes.vhd|
+R12
+R13
+!s100 z^T?Al6ATd1hbnm2KK>7o1
+!i10b 1
+Asyn
+R3
+R4
+DEx4 work 14 mem_instrucoes 0 22 AYEHP:5M79Rj;Yk009a;81
+l86
+L54
+Vi=9`WBzYMLTZCH5z0Oo@V0
+R8
+31
+R23
+R24
+R25
+R12
+R13
 !s100 KPKSBR?JMA:kea?V4n`Qc1
 !i10b 1
-Emem_instrucoes_test
-Z13 w1528933869
+Epc_adder
+Z26 w1529263727
 R2
 R3
 R4
-Z14 8C:/Users/Mateus Luiz/Documents/OAC/oac-trab/trab-6/mem_instrucoes_tb.vhd
-Z15 FC:/Users/Mateus Luiz/Documents/OAC/oac-trab/trab-6/mem_instrucoes_tb.vhd
+R5
+Z27 8C:/Users/Mateus Luiz/Documents/OAC/oac-trab/trab-6/pc_adder.vhd
+Z28 FC:/Users/Mateus Luiz/Documents/OAC/oac-trab/trab-6/pc_adder.vhd
 l0
-L30
-VNAm>7:>l:g1zD;^:4OO`B2
-!s100 4K?TmH9Dd=5m4QaPkiQi51
-R7
+L5
+VBRMdHPz>bZe^FzF;Y[Adj3
+R8
 31
-!i10b 1
-Z16 !s108 1528933905.802000
-Z17 !s90 -reportprogress|300|-93|-work|work|C:/Users/Mateus Luiz/Documents/OAC/oac-trab/trab-6/mem_instrucoes_tb.vhd|
-Z18 !s107 C:/Users/Mateus Luiz/Documents/OAC/oac-trab/trab-6/mem_instrucoes_tb.vhd|
-R11
+Z29 !s108 1529272940.315000
+Z30 !s90 -reportprogress|300|-93|-work|work|C:/Users/Mateus Luiz/Documents/OAC/oac-trab/trab-6/pc_adder.vhd|
+Z31 !s107 C:/Users/Mateus Luiz/Documents/OAC/oac-trab/trab-6/pc_adder.vhd|
 R12
-Amem_instrucoes_arch
+R13
+!s100 =5?Re`dAjz3ReJOhFVD0P0
+!i10b 1
+Apc_adder_arch
 R2
 R3
-DEx4 work 19 mem_instrucoes_test 0 22 NAm>7:>l:g1zD;^:4OO`B2
-l49
-L32
-VfLN9VVnL<L3Ge^;7V;iZL0
-!s100 MoKPjSbD]WbGodCCfhSI31
-R7
+R4
+DEx4 work 8 pc_adder 0 22 BRMdHPz>bZe^FzF;Y[Adj3
+l13
+L12
+VAWhc=_3RQKJgFTCTOU2;Z3
+R8
 31
-!i10b 1
-R16
-R17
-R18
-R11
+R29
+R30
+R31
 R12
+R13
+!s100 ICX`kbQK5La^Y5o;S<_C_0
+!i10b 1
+Epc_register
+Z32 w1529263845
+R3
+R4
+R5
+Z33 8C:/Users/Mateus Luiz/Documents/OAC/oac-trab/trab-6/pc_register.vhd
+Z34 FC:/Users/Mateus Luiz/Documents/OAC/oac-trab/trab-6/pc_register.vhd
+l0
+L4
+V_^;M`<e>o<8ORnW88c<cn0
+R8
+31
+Z35 !s108 1529272940.514000
+Z36 !s90 -reportprogress|300|-93|-work|work|C:/Users/Mateus Luiz/Documents/OAC/oac-trab/trab-6/pc_register.vhd|
+Z37 !s107 C:/Users/Mateus Luiz/Documents/OAC/oac-trab/trab-6/pc_register.vhd|
+R12
+R13
+!s100 6eIm_LO><]62K?68lCXJK3
+!i10b 1
+Apc_register_arch
+R3
+R4
+DEx4 work 11 pc_register 0 22 _^;M`<e>o<8ORnW88c<cn0
+l13
+L12
+VZ_]UWmMeAG^f;gN9oPDX@3
+R8
+31
+R35
+R36
+R37
+R12
+R13
+!s100 100o[igYl@1N?48L@Mb[F3
+!i10b 1

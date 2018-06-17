@@ -1,5 +1,5 @@
 Flow report for memoriaInstrucoes
-Wed Jun 13 20:51:12 2018
+Sun Jun 17 19:02:11 2018
 Quartus II 64-Bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
 
 
@@ -40,18 +40,18 @@ applicable agreement for further details.
 +--------------------------------------------------------------------------------------+
 ; Flow Summary                                                                         ;
 +------------------------------------+-------------------------------------------------+
-; Flow Status                        ; Successful - Wed Jun 13 20:51:12 2018           ;
+; Flow Status                        ; Successful - Sun Jun 17 19:02:11 2018           ;
 ; Quartus II 64-Bit Version          ; 13.0.1 Build 232 06/12/2013 SP 1 SJ Web Edition ;
 ; Revision Name                      ; memoriaInstrucoes                               ;
-; Top-level Entity Name              ; mem_instrucoes                                  ;
+; Top-level Entity Name              ; full_component                                  ;
 ; Family                             ; Cyclone II                                      ;
 ; Device                             ; EP2C70F896C6                                    ;
 ; Timing Models                      ; Final                                           ;
-; Total logic elements               ; 0                                               ;
-;     Total combinational functions  ; 0                                               ;
-;     Dedicated logic registers      ; 0                                               ;
-; Total registers                    ; 0                                               ;
-; Total pins                         ; 74                                              ;
+; Total logic elements               ; 40                                              ;
+;     Total combinational functions  ; 8                                               ;
+;     Dedicated logic registers      ; 40                                              ;
+; Total registers                    ; 40                                              ;
+; Total pins                         ; 66                                              ;
 ; Total virtual pins                 ; 0                                               ;
 ; Total memory bits                  ; 8,192                                           ;
 ; Embedded Multiplier 9-bit elements ; 0                                               ;
@@ -64,7 +64,7 @@ applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 06/13/2018 20:51:11 ;
+; Start date & time ; 06/17/2018 19:02:09 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; memoriaInstrucoes   ;
 +-------------------+---------------------+
@@ -75,29 +75,33 @@ applicable agreement for further details.
 +--------------------------------------+----------------------------------------------------+-------------------+----------------+---------------------+
 ; Assignment Name                      ; Value                                              ; Default Value     ; Entity Name    ; Section Id          ;
 +--------------------------------------+----------------------------------------------------+-------------------+----------------+---------------------+
-; COMPILER_SIGNATURE_ID                ; 242250652159635.152893387008856                    ; --                ; --             ; --                  ;
+; COMPILER_SIGNATURE_ID                ; 242250652159635.152927292907308                    ; --                ; --             ; --                  ;
 ; EDA_DESIGN_INSTANCE_NAME             ; i1                                                 ; --                ; --             ; mem_instrucoes_test ;
-; EDA_NATIVELINK_SIMULATION_TEST_BENCH ; mem_instrucoes_test                                ; --                ; --             ; eda_simulation      ;
+; EDA_DESIGN_INSTANCE_NAME             ; i1                                                 ; --                ; --             ; full_component_test ;
+; EDA_NATIVELINK_SIMULATION_TEST_BENCH ; full_component_test                                ; --                ; --             ; eda_simulation      ;
 ; EDA_NETLIST_WRITER_OUTPUT_DIR        ; C:/Users/Mateus Luiz/Documents/OAC/oac-trab/trab-6 ; --                ; --             ; eda_simulation      ;
 ; EDA_OUTPUT_DATA_FORMAT               ; Vhdl                                               ; --                ; --             ; eda_simulation      ;
 ; EDA_SIMULATION_TOOL                  ; ModelSim-Altera (VHDL)                             ; <None>            ; --             ; --                  ;
 ; EDA_TEST_BENCH_ENABLE_STATUS         ; TEST_BENCH_MODE                                    ; --                ; --             ; eda_simulation      ;
 ; EDA_TEST_BENCH_FILE                  ; mem_instrucoes_tb.vhd                              ; --                ; --             ; mem_instrucoes_test ;
+; EDA_TEST_BENCH_FILE                  ; full_component_tb.vhd                              ; --                ; --             ; full_component_test ;
 ; EDA_TEST_BENCH_MODULE_NAME           ; mem_instrucoes_test                                ; --                ; --             ; mem_instrucoes_test ;
+; EDA_TEST_BENCH_MODULE_NAME           ; full_component_test                                ; --                ; --             ; full_component_test ;
 ; EDA_TEST_BENCH_NAME                  ; mem_instrucoes_test                                ; --                ; --             ; eda_simulation      ;
+; EDA_TEST_BENCH_NAME                  ; full_component_test                                ; --                ; --             ; eda_simulation      ;
 ; IP_TOOL_NAME                         ; RAM: 1-PORT                                        ; --                ; --             ; --                  ;
 ; IP_TOOL_VERSION                      ; 13.0                                               ; --                ; --             ; --                  ;
 ; MAX_CORE_JUNCTION_TEMP               ; 85                                                 ; --                ; --             ; --                  ;
 ; MIN_CORE_JUNCTION_TEMP               ; 0                                                  ; --                ; --             ; --                  ;
 ; MISC_FILE                            ; mem_instrucoes_inst.vhd                            ; --                ; --             ; --                  ;
 ; MISC_FILE                            ; mem_instrucoes.cmp                                 ; --                ; --             ; --                  ;
-; PARTITION_COLOR                      ; 16764057                                           ; --                ; mem_instrucoes ; Top                 ;
-; PARTITION_FITTER_PRESERVATION_LEVEL  ; PLACEMENT_AND_ROUTING                              ; --                ; mem_instrucoes ; Top                 ;
-; PARTITION_NETLIST_TYPE               ; SOURCE                                             ; --                ; mem_instrucoes ; Top                 ;
+; PARTITION_COLOR                      ; 16764057                                           ; --                ; full_component ; Top                 ;
+; PARTITION_FITTER_PRESERVATION_LEVEL  ; PLACEMENT_AND_ROUTING                              ; --                ; full_component ; Top                 ;
+; PARTITION_NETLIST_TYPE               ; SOURCE                                             ; --                ; full_component ; Top                 ;
 ; POWER_BOARD_THERMAL_MODEL            ; None (CONSERVATIVE)                                ; --                ; --             ; --                  ;
 ; POWER_PRESET_COOLING_SOLUTION        ; 23 MM HEAT SINK WITH 200 LFPM AIRFLOW              ; --                ; --             ; --                  ;
 ; PROJECT_OUTPUT_DIRECTORY             ; output_files                                       ; --                ; --             ; --                  ;
-; TOP_LEVEL_ENTITY                     ; mem_instrucoes                                     ; memoriaInstrucoes ; --             ; --                  ;
+; TOP_LEVEL_ENTITY                     ; full_component                                     ; memoriaInstrucoes ; --             ; --                  ;
 +--------------------------------------+----------------------------------------------------+-------------------+----------------+---------------------+
 
 
@@ -106,8 +110,8 @@ applicable agreement for further details.
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis ; 00:00:02     ; 1.0                     ; 523 MB              ; 00:00:02                           ;
-; Total                ; 00:00:02     ; --                      ; --                  ; 00:00:02                           ;
+; Analysis & Synthesis ; 00:00:01     ; 1.0                     ; 522 MB              ; 00:00:02                           ;
+; Total                ; 00:00:01     ; --                      ; --                  ; 00:00:02                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 

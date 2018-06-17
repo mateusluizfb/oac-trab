@@ -49,12 +49,12 @@ END COMPONENT;
 BEGIN
 	i1 : mem_instrucoes
 	PORT MAP (
--- list connections between master ports and signals
-	address => address,
-	clock => clock,
-	data => data,
-	q => q,
-	wren => wren
+	-- list connections between master ports and signals
+		address => address,
+		clock => clock,
+		data => data,
+		q => q,
+		wren => wren
 	);
 init : PROCESS                                               
 -- variable declarations                                     
@@ -164,6 +164,7 @@ BEGIN
 	assert (q = X"FFFFFFFF");
 
 	clock <= '0';
+	
 	
 WAIT;                                                       
 END PROCESS init;                                           
